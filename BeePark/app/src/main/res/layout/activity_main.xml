@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/primary">
+
+    <TextView
+        android:id="@+id/appNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alatsi"
+        android:paddingTop="30sp"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:textColor="@color/accent"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/placeholder"
+        android:paddingLeft="80sp"
+        android:paddingRight="80sp"
+        app:layout_constraintTop_toBottomOf="@id/appNameTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/landingPageDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingLeft="50sp"
+        android:paddingRight="50sp"
+        android:textSize="20sp"
+        android:textColor="@color/accent"
+        android:fontFamily="@font/alatsi"
+        android:text="@string/welcome_message"
+        app:layout_constraintTop_toBottomOf="@id/logoIv"
+        />
+
+    <Button
+        android:id="@+id/btnRegis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textColor="@color/accent"
+        android:fontFamily="@font/alatsi"
+        android:textSize="15sp"
+
+        android:layout_margin="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="@color/accent"
+        android:fontFamily="@font/alatsi"
+        android:textSize="15sp"
+
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginBottom="50sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnRegis"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

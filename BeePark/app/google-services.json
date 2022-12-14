@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1061281122630",
+    "project_id": "beepark-13929",
+    "storage_bucket": "beepark-13929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061281122630:android:4c4f25ecae399610c53d47",
+        "android_client_info": {
+          "package_name": "edu.bluejack22_1.beepark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061281122630-plar0teljf9mm6iste4ud4pj45maf1pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq-6RAnBwXg1LktKt8lxvmnrsj6A3RL5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061281122630-plar0teljf9mm6iste4ud4pj45maf1pn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

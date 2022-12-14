@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">BeePark</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="username">Username</string>
+    <string name="back">back</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confPassword">Confirm Password</string>
+    <string name="welcome_message">Welcome to BeePark Application! Help you finding parking spot much easier!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="LabelBookParking">Book Parking Spots</string>
+
 </resources>
