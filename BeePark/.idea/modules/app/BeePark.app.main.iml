@@ -29,21 +29,23 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d6fe5fa8f51656b60a23bf67fb72da2d/transformed/jetified-lifecycle-viewmodel-ktx-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3eb9880ab2368d2d81aa39dadb43e199/transformed/material-1.7.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7d5d9e6d5cbdc7cfc254afbc8a7aa9f3/transformed/appcompat-1.5.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/4f5f64ef3c9a4c3d2b90f2888c09b08e/transformed/jetified-play-services-auth-20.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/890a009c37fead6bbc32f521386a3e4c/transformed/jetified-viewpager2-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/83915da3d2f74abbc6ab7b1c4ef99ac9/transformed/jetified-firebase-auth-ktx-21.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/91205dce73dd1fdec5bfc951c43f116b/transformed/jetified-firebase-auth-21.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/574b3b4c7de46e57158042e47e79b0a9/transformed/jetified-firebase-firestore-ktx-24.0.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/310b7fe0a90c5dd7b134fc3430e3e242/transformed/jetified-firebase-common-ktx-20.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6df01b6d07c9d27c7ce1c00bc8b39c8f/transformed/jetified-firebase-firestore-24.0.2-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/0bbe44ee6bc55c02b67f74a902e9d910/transformed/jetified-play-services-auth-api-phone-18.0.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/1abdaf4d949b8472f4b479fefd08cdb5/transformed/jetified-play-services-auth-base-18.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/da8ded97ed01e1965d9136c165e0b5e8/transformed/jetified-firebase-appcheck-interop-16.0.0-beta02-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/81395148c97ba8d68ea20c788acab4dd/transformed/jetified-firebase-database-collection-18.0.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/76f6786f596707aea75a20262daa203d/transformed/jetified-play-services-safetynet-17.0.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/806c4c590a5029b02192fd168f148320/transformed/jetified-play-services-base-18.0.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/310b7fe0a90c5dd7b134fc3430e3e242/transformed/jetified-firebase-common-ktx-20.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/cbe514a6777b58b41c822405f1af1f40/transformed/jetified-firebase-auth-interop-20.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/880c386b6b88583a92eff848e1aaa051/transformed/jetified-firebase-common-20.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2de21c90c4884cd18abe987bdc535a7f/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/986be18801be12bdfd73c83607b38687/transformed/jetified-kotlinx-coroutines-play-services-1.6.4.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/81395148c97ba8d68ea20c788acab4dd/transformed/jetified-firebase-database-collection-18.0.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/5741d2f2e67a6928c673e529a457e761/transformed/jetified-play-services-auth-api-phone-17.4.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/76f6786f596707aea75a20262daa203d/transformed/jetified-play-services-safetynet-17.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/806c4c590a5029b02192fd168f148320/transformed/jetified-play-services-base-18.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6c2586341c26952ac283b7141ff7e407/transformed/jetified-play-services-tasks-18.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/065c11a596b527bb1f971b189bec3d20/transformed/jetified-play-services-basement-18.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/214fccc427fd28a52894359783bbf1a2/transformed/fragment-1.4.1-api.jar</arg>
@@ -64,11 +66,11 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9880408d4d4336ba2fc47527ea1af675/transformed/transition-1.4.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/dd0301bd0d1a29b983def67ebd4f9eca/transformed/vectordrawable-animated-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f73f089dc33ed7764f023d4eb576c6b3/transformed/vectordrawable-1.1.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/14e864399503e0476114a4002f1628b0/transformed/legacy-support-core-utils-1.0.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/784ddbe9ab6313d36605597eff6843c2/transformed/loader-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d05237c55f2b2242cdde0ef5b6a86971/transformed/viewpager-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4af321758adb9ad66761946bc29a0612/transformed/slidingpanelayout-1.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0972ea04337dddf7fbbc4489ccd6456b/transformed/customview-1.1.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/14e864399503e0476114a4002f1628b0/transformed/legacy-support-core-utils-1.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/784ddbe9ab6313d36605597eff6843c2/transformed/loader-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0cbc44e1b6f3e64890f9ec221dc5d366/transformed/browser-1.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a4cbef2b7f977112ca2e5e73548ffe0e/transformed/core-1.8.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f152593fa124c24e1d7d68ece3e9735b/transformed/cursoradapter-1.0.0-api.jar</arg>
@@ -279,8 +281,10 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-auth-ktx:21.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-auth:21.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.browser:browser:1.4.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth-api-phone:17.4.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth-api-phone:18.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-safetynet:17.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth:20.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth-base:18.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.ui:ui:1.3.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.runtime:runtime-saveable:1.3.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.runtime:runtime:1.3.2@aar" level="project" />
