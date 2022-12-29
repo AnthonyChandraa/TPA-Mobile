@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1061281122630-1me50s2levf96je0l0gko7ckorriq0j8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.bluejack22_1.beepark",
+            "certificate_hash": "3be368e6baa820b5ce57e504ef9ec7f5cb0f842a"
+          }
+        },
+        {
           "client_id": "1061281122630-plar0teljf9mm6iste4ud4pj45maf1pn.apps.googleusercontent.com",
           "client_type": 3
         }
