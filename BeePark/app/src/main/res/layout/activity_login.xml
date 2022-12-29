@@ -92,8 +92,21 @@
 
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:layout_marginBottom="50sp"
+        android:layout_marginBottom="120sp"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signInWithGoogleButton"
+
+        android:layout_marginBottom="50sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
