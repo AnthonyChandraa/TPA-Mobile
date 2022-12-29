@@ -16,5 +16,7 @@
     <string name="LabelBookParking">Book Parking Spots</string>
     <string name="close">Close</string>
     <string name="serve">Serve</string>
+    <string name="profile">Profile</string>
+    <string name="update_profile">Update Profile</string>
 
 </resources>
