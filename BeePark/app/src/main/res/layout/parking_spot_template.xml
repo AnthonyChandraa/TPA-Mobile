@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parkingSpotBox"
+    android:orientation="vertical"
+    android:layout_width="55sp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginStart="6sp"
+    android:layout_marginEnd="6sp"
+    android:layout_marginBottom="60sp"
+    android:background="@drawable/border_spots_rv"
+    >
+
+    <ImageView
+        android:padding="3sp"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:src="@drawable/ic_car"
+        />
+
+    <TextView
+        android:id="@+id/spotCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp"
+
+        android:fontFamily="@font/alatsi"
+        android:text="Code"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
+
+    <Button
+        android:id="@+id/btnCloseOrOpen"
+        android:layout_width="35sp"
+        android:layout_height="25sp"
+        android:padding="2sp"
+
+        android:fontFamily="@font/alatsi"
+        android:textSize="6sp"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/red_rose"
+        android:text="@string/close"
+        />
+
+</LinearLayout>

@@ -4,50 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UserHomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btnBookParking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/persian_green"
-
-        android:fontFamily="@font/alatsi"
-        android:text="@string/LabelBookParking"
-        android:textAllCaps="false"
-        android:layout_margin="10sp"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-
-        app:layout_constraintTop_toBottomOf="@id/btnBookParking"
-        app:layout_constraintLeft_toLeftOf="parent"
-        >
-
-        <Spinner
-            android:id="@+id/dropdownBuilding"
-            android:layout_width="170sp"
-            android:layout_height="48dp"
-            android:layout_margin="15sp"
-            android:background="@drawable/dropdown_bg"
-            />
-
-        <Spinner
-            android:id="@+id/dropdownFloor"
-            android:layout_width="170sp"
-            android:layout_height="48dp"
-            android:layout_margin="15sp"
-            android:background="@drawable/dropdown_bg" />
-    </LinearLayout>
+    tools:context=".UserHomeFragment"
+    >
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

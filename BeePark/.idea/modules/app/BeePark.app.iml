@@ -24,6 +24,32 @@
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="4" platform="JVM 1.8" allPlatforms="JVM [1.8]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debug" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/transforms-3/533de7fe9007887d9d34c5b662938296/transformed/material-1.7.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/e3788c6de2b96a54baf551cdb8976d20/transformed/appcompat-1.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/13107cc0a77b43d71b8560513875009e/transformed/viewpager2-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/54b06104dee18747d784b69d354aa50e/transformed/fragment-1.3.6-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/329b50a74f3757042e8ce9632ba96f6c/transformed/activity-1.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/d70934d4051500ca94c5e711612c935d/transformed/lifecycle-viewmodel-savedstate-2.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.1/97fd74ccf54a863d221956ffcd21835e168e2aaa/kotlinx-coroutines-core-jvm-1.6.1.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-android/1.6.1/4e61fcdcc508cbaa37c4a284a50205d7c7767e37/kotlinx-coroutines-android-1.6.1.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.6.0/baf82c475e9372c25407f3d132439e4aa803b8b8/kotlin-stdlib-jdk8-1.6.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/6828bee7d1cc57bbde63798ce2a01007/transformed/core-ktx-1.8.0-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.6.0/da6bdc87391322974a43ccc00a25536ae74dad51/kotlin-stdlib-jdk7-1.6.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/9e119d4bdfd6384751e605ca7c852af4/transformed/savedstate-1.2.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/814438988842ea495a12d47d5d1a9977/transformed/dynamicanimation-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/f1e366f4a1ea24de7e0b258905736bf9/transformed/legacy-support-core-utils-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/41113c7231ea3e9e980ca89ac1680398/transformed/loader-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/611c0169dd63f98c08dff47d4cd16542/transformed/lifecycle-viewmodel-2.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.7.10/d2abf9e77736acc4450dc4a3f707fa2c10f5099d/kotlin-stdlib-1.7.10.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.10/bac80c520d0a9e3f3673bc2658c6ed02ef45a76a/kotlin-stdlib-common-1.7.10.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/179e0198165a98ecca856ad4235e5667/transformed/appcompat-resources-1.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/5acafbd711ad43e0211b596860846a14/transformed/drawerlayout-1.1.1-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/030bdcf9a787eb3909fbe92d7bc690d7/transformed/coordinatorlayout-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/02ae775cfa4da906a3ba3582f7f64c95/transformed/recyclerview-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/61ccf748ec59985340d0a1a79a730dbc/transformed/transition-1.2.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/7277f6369eb9a64d34738d6becab02a4/transformed/vectordrawable-animated-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/193cec6459796e4d3337825df6664679/transformed/vectordrawable-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/48a16a93675c50b0a93f0fddee0b60d9/transformed/viewpager-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/733bc77495fc80ed8586aeb252e249ce/transformed/customview-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/fc52f7af7117b02bbb5f37ec6c5ea564/transformed/core-1.8.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/38cb8f9627b8368995c2494d055a26b8/transformed/cursoradapter-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/214c3ecc7e7aab02a59246b52a9e6b56/transformed/cardview-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/58b9757a8c9554b458fb01e3eb190761/transformed/lifecycle-runtime-2.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/7d5343b1755085faf866e4e74127c539/transformed/versionedparcelable-1.1.1-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.1.0/1f27220b47669781457de0d600849a5de0e89909/collection-1.1.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/d4b545f59cb3cc98cc998d570a3194ca/transformed/lifecycle-livedata-2.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/89b5500e3c4acde40557be75d7cb59f3/transformed/core-runtime-2.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.1.0/b3152fc64428c9354344bd89848ecddc09b6f07e/core-common-2.1.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/8d9d850ee1efff888d5c8416915705bd/transformed/lifecycle-livedata-core-2.5.1-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/77c5f02da43d331ecf69e0a1657c9283/transformed/interpolator-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/0fd48cb3074b66ad52d1f032f6ebd5f3/transformed/documentfile-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/0224d9d83669803b13fa14b1808b4ba5/transformed/localbroadcastmanager-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/e7b59aa2649d233833887d29d883d82f/transformed/print-1.0.0-api.jar;C:/Users/Lenovo/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation/1.3.0/21f49f5f9b85fc49de712539f79123119740595/annotation-1.3.0.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/50c06c4a943c2770da79cb6f404140c5/transformed/annotation-experimental-1.1.0-api.jar;C:/Users/Lenovo/.gradle/caches/transforms-3/e83dec1881242038817ab0950b1cc8fe/transformed/constraintlayout-2.1.4-api.jar;C:/Users/Lenovo/AppData/Local/Android/Sdk/platforms/android-32/android.jar;C:/Users/Lenovo/AppData/Local/Android/Sdk/build-tools/30.0.3/core-lambda-stubs.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="app_debug" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="languageVersion" value="1.5" />
+          <option name="apiVersion" value="1.5" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debug/classes" />
@@ -33,7 +59,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../app/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../app/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 32 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
