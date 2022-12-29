@@ -124,7 +124,7 @@
 
         <Spinner
             android:id="@+id/dropdownBuilding"
-            android:layout_width="150sp"
+            android:layout_width="170sp"
             android:layout_height="48dp"
             android:layout_margin="15sp"
 
@@ -133,7 +133,7 @@
 
         <Spinner
             android:id="@+id/dropdownFloor"
-            android:layout_width="150sp"
+            android:layout_width="100sp"
             android:layout_height="48dp"
             android:layout_margin="15sp"
             android:background="@drawable/dropdown_bg" />
