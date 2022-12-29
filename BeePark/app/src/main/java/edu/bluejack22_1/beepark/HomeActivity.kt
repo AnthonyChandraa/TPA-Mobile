@@ -23,8 +23,8 @@ class HomeActivity : AppCompatActivity() {
 
         val contentFragmentTrans = supportFragmentManager.beginTransaction()
 
-        val isAdmin = true
-        val isUser = false
+        val isAdmin = false
+        val isUser = true
         if(isUser){
             contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             contentFragmentTrans.add(R.id.contentFragment, UserHomeFragment(), "userHomeFragment").commitAllowingStateLoss()
