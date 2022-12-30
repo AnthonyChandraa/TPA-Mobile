@@ -18,7 +18,7 @@ import kotlin.math.log
 class UserController(private var context: Context) {
     private var db = Firebase.firestore
 
-    public fun createNewUser(username: String, email: String){
+    public fun createNewUser(username: String?, email: String?, isGoogle: Boolean){
         val newUser = hashMapOf(
             "email" to email,
             "role" to "user",
@@ -31,6 +31,9 @@ class UserController(private var context: Context) {
             .add(newUser)
             .addOnSuccessListener {
                 Log.w("Create User", "success")
+                if(isGoogle){
+                    loginUser(email)
+                }
             }
             .addOnFailureListener {
                 Log.w("Create User", "failed")

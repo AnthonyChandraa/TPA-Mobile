@@ -56,10 +56,10 @@ class RegisActivity : AppCompatActivity() {
 
             if(username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty()){
                 if(password == confirm){
-                    if(password.length >= 8 && password.length <=20){
+                    if(password.length in 8..20){
                         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
                             if(task.isSuccessful){
-                                userController.createNewUser(username, email)
+                                userController.createNewUser(username, email, false)
                                 startActivity(Intent(this, LoginActivity::class.java))
 
                             }else{

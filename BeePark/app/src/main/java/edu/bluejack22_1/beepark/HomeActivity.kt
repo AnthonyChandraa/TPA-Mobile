@@ -2,18 +2,15 @@ package edu.bluejack22_1.beepark
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.RecyclerView
-import edu.bluejack22_1.beepark.controllers.BuildingController
-import edu.bluejack22_1.beepark.controllers.ParkingSpotController
+import edu.bluejack22_1.beepark.adminFragments.ParkingHistoryFragment
 import edu.bluejack22_1.beepark.controllers.UserController
 import edu.bluejack22_1.beepark.databinding.ActivityHomeBinding
+import edu.bluejack22_1.beepark.userFragments.BookingHistoryFragment
 import edu.bluejack22_1.beepark.userFragments.MyBookingFragment
-import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -47,8 +44,32 @@ class HomeActivity : AppCompatActivity() {
         userController.setUsername(binding.usernameTv, userId)
 
 //        openHomeFragment(contentFragmentTrans)
-        openMyBookingFragment(contentFragmentTrans)
+//        openMyBookingFragment(contentFragmentTrans)
+//        openBookingHistoryFragment(contentFragmentTrans)
+        openParkingHistoryFragment(contentFragmentTrans)
         setContentView(binding.root)
+    }
+
+//    admin view punya
+    private fun openParkingHistoryFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val parkingHistoryFragment = ParkingHistoryFragment()
+        parkingHistoryFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, parkingHistoryFragment, "parkingHistoryFragment").commitAllowingStateLoss()
+
+    }
+
+    private fun openBookingHistoryFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val bookingHistoryFragment = BookingHistoryFragment()
+        bookingHistoryFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, bookingHistoryFragment, "bookingHistoryFragment").commitAllowingStateLoss()
     }
 
     private fun openMyBookingFragment(contentFragmentTrans: FragmentTransaction){
@@ -58,7 +79,7 @@ class HomeActivity : AppCompatActivity() {
             putBoolean("isAdmin", isAdmin)
             putString("userId", userId)
         }
-        contentFragmentTrans.add(R.id.contentFragment, myBookingFragment, "homeFragment").commitAllowingStateLoss()
+        contentFragmentTrans.add(R.id.contentFragment, myBookingFragment, "myBookingFragment").commitAllowingStateLoss()
     }
 
     private fun openHomeFragment(contentFragmentTrans: FragmentTransaction){
