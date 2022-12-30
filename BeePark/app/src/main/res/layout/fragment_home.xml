@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment"
+    android:layout_gravity="center"
+    >
+
+    <Button
+        android:id="@+id/btnBookParking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/persian_green"
+
+        android:fontFamily="@font/alatsi"
+        android:text="@string/LabelBookParking"
+        android:textAllCaps="false"
+        android:layout_margin="10sp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/dropdowns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintTop_toBottomOf="@id/btnBookParking"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+
+        <Spinner
+            android:id="@+id/dropdownBuilding"
+            android:layout_width="170sp"
+            android:layout_height="48dp"
+            android:layout_margin="15sp"
+
+            android:background="@drawable/dropdown_bg"
+            />
+
+        <Spinner
+            android:id="@+id/dropdownFloor"
+            android:layout_width="100sp"
+            android:layout_height="48dp"
+            android:layout_margin="15sp"
+            android:background="@drawable/dropdown_bg" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parkingSpotsRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="15sp"
+        app:layout_constraintTop_toBottomOf="@id/dropdowns"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

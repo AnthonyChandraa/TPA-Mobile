@@ -96,63 +96,9 @@
         app:layout_constraintTop_toBottomOf="@+id/headerHome"
         />
 
-    <Button
-        android:id="@+id/btnBookParking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/persian_green"
-
-        android:fontFamily="@font/alatsi"
-        android:text="@string/LabelBookParking"
-        android:textAllCaps="false"
-        android:layout_margin="10sp"
-
-        app:layout_constraintTop_toBottomOf="@id/headerHome"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <LinearLayout
-        android:id="@+id/dropdowns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-
-        app:layout_constraintTop_toBottomOf="@id/btnBookParking"
-        app:layout_constraintLeft_toLeftOf="parent"
-        >
-
-        <Spinner
-            android:id="@+id/dropdownBuilding"
-            android:layout_width="150sp"
-            android:layout_height="48dp"
-            android:layout_margin="15sp"
-
-            android:background="@drawable/dropdown_bg"
-            />
-
-        <Spinner
-            android:id="@+id/dropdownFloor"
-            android:layout_width="150sp"
-            android:layout_height="48dp"
-            android:layout_margin="15sp"
-            android:background="@drawable/dropdown_bg" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/parkingSpotsRv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:padding="15sp"
-        app:layout_constraintTop_toBottomOf="@id/dropdowns"
-        />
-
     <FrameLayout
-        android:padding="10sp"
         android:id="@+id/contentFragment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:foregroundGravity="center"
