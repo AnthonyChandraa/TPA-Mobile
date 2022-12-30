@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beepark.UIString.UiString
+import edu.bluejack22_1.beepark.controllers.UserController
 
 class RegisActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class RegisActivity : AppCompatActivity() {
     private lateinit var etConfirm : EditText
     private lateinit var btnRegister : Button
     private lateinit var btnToLogin : Button
+    private lateinit var userController: UserController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,8 @@ class RegisActivity : AppCompatActivity() {
 //        if(currentUser != null){
 //            startActivity(Intent(this, HomeActivity::class.java))
 //        }
+
+        userController = UserController(this)
 
         etUsername = findViewById(R.id.usernameInput)
         etEmail = findViewById(R.id.emailInput)
@@ -54,22 +59,22 @@ class RegisActivity : AppCompatActivity() {
                     if(password.length >= 8 && password.length <=20){
                         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
                             if(task.isSuccessful){
-                                Log.d(TAG, "createUserWithEmail:success")
+                                userController.createNewUser(username, email)
                                 startActivity(Intent(this, LoginActivity::class.java))
 
                             }else{
                                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                                Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, UiString.StringResource(resId = R.string.errorRegis).asString(this), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }else{
-                        Toast.makeText(this, "Password Must Be 8-20 Characters!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, UiString.StringResource(resId = R.string.errorPasswordLength).asString(this), Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(this, "Password Mismatch!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, UiString.StringResource(resId = R.string.errorConfirmPassword).asString(this), Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(this, "All Fields Must Be Filled!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
             }
         }
     }

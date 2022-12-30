@@ -6,12 +6,14 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.R
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beepark.HomeActivity
+import edu.bluejack22_1.beepark.model.Booking
 import edu.bluejack22_1.beepark.model.Building
 import java.util.ArrayList
 import java.util.Vector
@@ -19,7 +21,7 @@ import java.util.Vector
 class BuildingController(var context: Context, var parkingSpotController: ParkingSpotController) {
     private var db = Firebase.firestore
 
-    private fun setFloorDropdown(spinner: Spinner, size: Int, spotsRv: RecyclerView, isAdmin: Boolean, buildingId: Int){
+    private fun setFloorDropdown(spinner: Spinner, size: Int, spotsRv: RecyclerView, isAdmin: Boolean, buildingId: Int, userId: String){
         val floorList: MutableList<String> = ArrayList()
 
         for(i in 1..size){
@@ -33,7 +35,7 @@ class BuildingController(var context: Context, var parkingSpotController: Parkin
         AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spotsRv.adapter = null
-                parkingSpotController.setUpRecycler(spotsRv, p2+1, isAdmin, buildingId)
+                parkingSpotController.setUpRecycler(spotsRv, p2+1, isAdmin, buildingId, userId)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -43,7 +45,7 @@ class BuildingController(var context: Context, var parkingSpotController: Parkin
 
     }
 
-    public fun setBuildingsDropdown(spinnerBuilding: Spinner, spinnerFloor: Spinner, spotsRv: RecyclerView, isAdmin: Boolean) {
+    public fun setBuildingsDropdown(spinnerBuilding: Spinner, spinnerFloor: Spinner, spotsRv: RecyclerView, isAdmin: Boolean, userId : String) {
         var buildings = Vector<Building>()
 
         db.collection("Building")
@@ -69,7 +71,7 @@ class BuildingController(var context: Context, var parkingSpotController: Parkin
                 spinnerBuilding.onItemSelectedListener = object :
                     AdapterView.OnItemSelectedListener{
                         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                            setFloorDropdown(spinnerFloor, buildings[p2].moxFloor, spotsRv, isAdmin, buildings[p2].buildingId)
+                            setFloorDropdown(spinnerFloor, buildings[p2].moxFloor, spotsRv, isAdmin, buildings[p2].buildingId, userId)
                         }
                         override fun onNothingSelected(p0: AdapterView<*>?) {
                         }
@@ -78,6 +80,20 @@ class BuildingController(var context: Context, var parkingSpotController: Parkin
             .addOnFailureListener { exception ->
                 Log.w("database building", "Error getting documents: ", exception)
             }
+    }
+
+    public fun setBuildingName(id:String,buildingTv:TextView){
+        db.collection("Building")
+            .document(id)
+            .get()
+            .addOnSuccessListener {
+                document ->
+                buildingTv.text = document.data?.get("buildingName").toString()
+            }
+    }
+
+    public fun search(bookings: Vector<Booking>) {
+
     }
 
 }

@@ -18,9 +18,10 @@ import edu.bluejack22_1.beepark.DetailSpotActivity
 import edu.bluejack22_1.beepark.R
 import edu.bluejack22_1.beepark.RegisActivity
 import edu.bluejack22_1.beepark.UIString.UiString
+import edu.bluejack22_1.beepark.controllers.ParkingSpotController
 import java.util.*
 
-class ParkingSpotsAdapter(private var parkingSpots: Vector<ParkingSpot>, var isAdmin: Boolean, var context: Context) :
+class ParkingSpotsAdapter(private var parkingSpots: Vector<ParkingSpot>, var isAdmin: Boolean, var userId: String, var context: Context) :
     RecyclerView.Adapter<ParkingSpotsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +33,8 @@ class ParkingSpotsAdapter(private var parkingSpots: Vector<ParkingSpot>, var isA
         holder.bind(parkingSpots[position])
         holder.itemView.setOnClickListener(View.OnClickListener {
             var intent: Intent = Intent(context, DetailSpotActivity::class.java)
+            intent.putExtra("isAdmin", isAdmin)
+            intent.putExtra("userId", userId)
             intent.putExtra("spotCode", parkingSpots[position].spotCode)
             context.startActivity(intent)
         })
@@ -58,13 +61,9 @@ class ParkingSpotsAdapter(private var parkingSpots: Vector<ParkingSpot>, var isA
                 View.VISIBLE
             }
 
+            val parkingSpotController = ParkingSpotController(context)
+            closeOpenBtn?.let { parkingSpotController.setAdminButton(spot.spotCode, it) }
 
-            closeOpenBtn?.setOnClickListener(View.OnClickListener {
-
-                var intent: Intent = Intent(context, RegisActivity::class.java)
-                context.startActivity(intent)
-
-            })
         }
     }
 }

@@ -2,27 +2,26 @@ package edu.bluejack22_1.beepark
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
-import edu.bluejack22_1.beepark.adapters.ParkingSpotsAdapter
 import edu.bluejack22_1.beepark.controllers.BuildingController
 import edu.bluejack22_1.beepark.controllers.ParkingSpotController
+import edu.bluejack22_1.beepark.controllers.UserController
 import edu.bluejack22_1.beepark.databinding.ActivityHomeBinding
-import edu.bluejack22_1.beepark.model.ParkingSpot
+import edu.bluejack22_1.beepark.userFragments.MyBookingFragment
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
     private var pressedTime = 0L
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var parkingSpotsAdapter: ParkingSpotsAdapter
-    private val isAdmin = true
-    private lateinit var buildingController: BuildingController
-    private lateinit var parkingSpotController: ParkingSpotController
+    private var isAdmin = false
+    private lateinit var userController: UserController
+    private lateinit var userId : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-//       val contentFragmentTrans = supportFragmentManager.beginTransaction()
+       val contentFragmentTrans = supportFragmentManager.beginTransaction()
 //      authorization user/admin
 //        if(!isAdmin){
 //            contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -43,34 +42,40 @@ class HomeActivity : AppCompatActivity() {
 //            contentFragmentTrans.add(R.id.contentFragment, AdminHomeFragment(), "adminHomeFragment").commitAllowingStateLoss()
 //        }
 
-        setUpDropdownAndRv()
+        userId = intent.extras?.getString("userId").toString()
+        userController = UserController(this)
+        userController.setUsername(binding.usernameTv, userId)
 
-//        setUpAdapter()
-//        setUpRecycler()
-
+//        openHomeFragment(contentFragmentTrans)
+        openMyBookingFragment(contentFragmentTrans)
         setContentView(binding.root)
     }
 
-    private fun setUpDropdownAndRv(){
-        recyclerView = binding.parkingSpotsRv
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-
-        parkingSpotController = ParkingSpotController(this)
-        buildingController = BuildingController(this, parkingSpotController)
-        buildingController.setBuildingsDropdown(binding.dropdownBuilding, binding.dropdownFloor, recyclerView, isAdmin)
+    private fun openMyBookingFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val myBookingFragment = MyBookingFragment()
+        myBookingFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, myBookingFragment, "homeFragment").commitAllowingStateLoss()
     }
 
-//    private fun setUpAdapter(){
-//        var dataParkingSpot = Vector<ParkingSpot>()
-//        parkingSpotsAdapter = ParkingSpotsAdapter(dataParkingSpot, isAdmin ,this)
-//    }
-
-//    private fun setUpRecycler(){
-//        recyclerView = binding.parkingSpotsRv
-//        recyclerView.layoutManager = GridLayoutManager(this, 5)
-//
-//        recyclerView.adapter = parkingSpotsAdapter
-//    }
+    private fun openHomeFragment(contentFragmentTrans: FragmentTransaction){
+        val userRef = userController.getUserRef(userId)
+        userRef.get()
+            .addOnSuccessListener {
+                    document ->
+                isAdmin = document.data?.get("role").toString() != "user"
+                contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                val homeFragment = HomeFragment()
+                homeFragment.arguments = Bundle().apply {
+                    putBoolean("isAdmin", isAdmin)
+                    putString("userId", userId)
+                }
+                contentFragmentTrans.add(R.id.contentFragment, homeFragment, "homeFragment").commitAllowingStateLoss()
+            }
+    }
 
     override fun onBackPressed() {
 //        super.onBackPressed()
