@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
 
         val btnProfile = binding.btnProfile
         btnProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java).putExtra("userId", intent.extras?.getString("userId").toString()))
         }
 
        val contentFragmentTrans = supportFragmentManager.beginTransaction()
