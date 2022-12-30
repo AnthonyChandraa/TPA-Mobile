@@ -35,5 +35,6 @@
     <string name="my_booking">My Booking</string>
     <string name="search">Search</string>
     <string name="time">Time</string>
+    <string name="logout">Logout</string>
 
 </resources>
