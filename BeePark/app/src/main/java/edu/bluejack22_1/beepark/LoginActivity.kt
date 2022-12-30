@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beepark.UIString.UiString
+import edu.bluejack22_1.beepark.controllers.UserController
 
 
 class LoginActivity : AppCompatActivity() {
@@ -32,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnToRegis : Button;
     private lateinit var btnSignInWithGoogle : SignInButton;
     private lateinit var googleSignInClient : GoogleSignInClient;
+    private lateinit var userController: UserController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,8 @@ class LoginActivity : AppCompatActivity() {
 //        if(currentUser != null){
 //            startActivity(Intent(this, HomeActivity::class.java))
 //        }
+
+        userController = UserController(this)
 
         btnSignInWithGoogle = findViewById(R.id.signInWithGoogleButton)
         btnSignInWithGoogle.setSize(SignInButton.SIZE_STANDARD)
@@ -70,13 +75,17 @@ class LoginActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
+            if(email.isEmpty() || password.isEmpty()){
+                Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
+            }
+
             if(email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){ task->
                     if(task.isSuccessful){
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        userController.loginUser(email)
                     }else{
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Login failed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorLogin).asString(this), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

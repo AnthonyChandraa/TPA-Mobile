@@ -2,26 +2,26 @@ package edu.bluejack22_1.beepark
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.R
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import edu.bluejack22_1.beepark.adapters.ParkingSpotsAdapter
+import edu.bluejack22_1.beepark.controllers.BuildingController
+import edu.bluejack22_1.beepark.controllers.ParkingSpotController
+import edu.bluejack22_1.beepark.controllers.UserController
 import edu.bluejack22_1.beepark.databinding.ActivityHomeBinding
-import edu.bluejack22_1.beepark.model.ParkingSpot
+import edu.bluejack22_1.beepark.userFragments.MyBookingFragment
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
     private var pressedTime = 0L
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var parkingSpotsAdapter: ParkingSpotsAdapter
-    private val isAdmin = true
+    private var isAdmin = false
+    private lateinit var userController: UserController
+    private lateinit var userId : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +32,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-        val contentFragmentTrans = supportFragmentManager.beginTransaction()
-
-        val bundle = Bundle()
-        bundle.putBoolean("isAdmin", isAdmin)
-
-        val userHomeFragment = UserHomeFragment()
-        userHomeFragment.arguments = bundle
-
+       val contentFragmentTrans = supportFragmentManager.beginTransaction()
 //      authorization user/admin
 //        if(!isAdmin){
 //            contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -49,53 +42,39 @@ class HomeActivity : AppCompatActivity() {
 //            contentFragmentTrans.add(R.id.contentFragment, AdminHomeFragment(), "adminHomeFragment").commitAllowingStateLoss()
 //        }
 
-        // simpen data building
-        val buildingList: MutableList<String> = ArrayList()
+        userId = intent.extras?.getString("userId").toString()
+        userController = UserController(this)
+        userController.setUsername(binding.usernameTv, userId)
 
-        // simpen data floor
-        val floorList: MutableList<String> = ArrayList()
-
-        for(i in 1..3){
-            buildingList.add("Building $i")
-        }
-
-        for(i in 1..8){
-            floorList.add("Floor $i")
-        }
-
-        val adapterDropdownBuilding = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, buildingList)
-
-        val adapterDropdownFloor = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, floorList)
-
-
-        binding.dropdownBuilding.adapter = adapterDropdownBuilding
-        binding.dropdownFloor.adapter = adapterDropdownFloor
-
-        setUpAdapter()
-        setUpRecycler()
-
+//        openHomeFragment(contentFragmentTrans)
+        openMyBookingFragment(contentFragmentTrans)
         setContentView(binding.root)
     }
 
-    private fun setUpAdapter(){
-        var dataParkingSpot = Vector<ParkingSpot>()
-
-        dataParkingSpot.add(ParkingSpot("A01", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A02", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A03", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A04", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A05", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A06", 1, 1))
-        dataParkingSpot.add(ParkingSpot("A07", 1, 1))
-        parkingSpotsAdapter = ParkingSpotsAdapter(dataParkingSpot, isAdmin ,this)
+    private fun openMyBookingFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val myBookingFragment = MyBookingFragment()
+        myBookingFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, myBookingFragment, "homeFragment").commitAllowingStateLoss()
     }
 
-    private fun setUpRecycler(){
-
-        recyclerView = binding.parkingSpotsRv
-
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-        recyclerView.adapter = parkingSpotsAdapter
+    private fun openHomeFragment(contentFragmentTrans: FragmentTransaction){
+        val userRef = userController.getUserRef(userId)
+        userRef.get()
+            .addOnSuccessListener {
+                    document ->
+                isAdmin = document.data?.get("role").toString() != "user"
+                contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                val homeFragment = HomeFragment()
+                homeFragment.arguments = Bundle().apply {
+                    putBoolean("isAdmin", isAdmin)
+                    putString("userId", userId)
+                }
+                contentFragmentTrans.add(R.id.contentFragment, homeFragment, "homeFragment").commitAllowingStateLoss()
+            }
     }
 
     override fun onBackPressed() {

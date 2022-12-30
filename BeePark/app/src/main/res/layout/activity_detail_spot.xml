@@ -6,14 +6,140 @@
     android:layout_height="match_parent"
     tools:context=".DetailSpotActivity">
 
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+
+        android:layout_margin="10sp"
+        android:fontFamily="@font/alatsi"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/back"
+
+        android:background="@drawable/back_btn"
+
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btnReportOrFeedback"
+        android:layout_margin="7sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:backgroundTint="@color/blue_crayola_light"
+        android:fontFamily="@font/alatsi"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/report_feedback"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
     <TextView
         android:id="@+id/spotCode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20sp"
+        android:textAlignment="center"
+
+        android:fontFamily="@font/alatsi"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+
+        android:text="@string/loading"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        />
+
+    <LinearLayout
+        android:id="@+id/layoutBuildinAndFloor"
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/spotCode"
+        >
+
+
+        <TextView
+            android:id="@+id/buildingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/alatsi"
+
+            android:background="@drawable/border_green"
+            android:padding="10sp"
+
+            android:text="Building"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            />
+
+        <TextView
+            android:id="@+id/floorTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="25sp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/alatsi"
+
+            android:background="@drawable/border_green"
+            android:padding="10sp"
+
+            android:text="Floor"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/infoTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="15sp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/alatsi"
+
+        android:padding="10sp"
+
+        android:text="@string/info"
+        app:layout_constraintTop_toBottomOf="@id/layoutBuildinAndFloor"
+        />
+
+    <Button
+        android:id="@+id/btnAction"
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:backgroundTint="@color/persian_green"
+        android:fontFamily="@font/alatsi"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/loading"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

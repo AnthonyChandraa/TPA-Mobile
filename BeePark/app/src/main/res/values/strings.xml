@@ -6,7 +6,7 @@
     <!-- Strings used for fragments for navigation -->
 
     <string name="username">Username</string>
-    <string name="back">back</string>
+    <string name="back">Back</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confPassword">Confirm Password</string>
@@ -18,5 +18,22 @@
     <string name="serve">Serve</string>
     <string name="profile">Profile</string>
     <string name="update_profile">Update Profile</string>
+
+    <string name="errorEmpty" type="id">Please Fill All The Blanks!</string>
+    <string name="errorLogin" type="id">Login Failed</string>
+    <string name="errorPasswordLength" type="id">Password Must Be 8–20 Characters!</string>
+    <string name="errorRegis" type="id">Register Failed</string>
+    <string name="errorConfirmPassword" type="id">Password Mismatch</string>
+    <string name="report_feedback">Report/Feedback</string>
+    <string name="loading">Loading</string>
+    <string name="info">Info:</string>
+    <string name="book">Book</string>
+    <string name="back_to_home">Back To Home</string>
+    <string name="open">Open</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="my_booking">My Booking</string>
+    <string name="search">Search</string>
+    <string name="time">Time</string>
 
 </resources>
