@@ -99,6 +99,8 @@ class ParkingSpotController(var context: Context) {
         bookingAdapter.setBookings(newVector)
         bookingAdapter.notifyDataSetChanged()
         for(booking in bookings){
+
+
             db.collection("ParkingSpot")
                 .document(booking.spotCode)
                 .get()

@@ -64,20 +64,19 @@
             android:text="@string/search"
             />
 
-        <EditText
-            android:layout_width="100sp"
+        <TextView
+            android:id="@+id/timePicker"
+            android:layout_width="160sp"
             android:layout_height="40sp"
 
-            android:layout_marginStart="60sp"
-            android:paddingStart="15sp"
+            android:clickable="true"
+
+            android:layout_marginStart="10sp"
+            android:gravity="center"
             android:fontFamily="@font/alatsi"
-            android:hint="@string/time"
+            android:text="@string/filter_time"
 
             android:background="@drawable/styling_input"
-
-            android:inputType="datetime"
-
-
             />
 
     </LinearLayout>
