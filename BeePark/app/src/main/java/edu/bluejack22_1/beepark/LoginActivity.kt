@@ -83,9 +83,9 @@ class LoginActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         userController.loginUser(email)
                     }else{
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorLogin).asString(this), Toast.LENGTH_SHORT).show()
-                    }
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorLogin).asString(this), Toast.LENGTH_SHORT).show()
+                        }
                 }
             }
         }
@@ -108,7 +108,10 @@ class LoginActivity : AppCompatActivity() {
     private fun handleResults(task: Task<GoogleSignInAccount>) {
         if(task.isSuccessful){
             val account: GoogleSignInAccount? = task.result
+            Log.w("user", "masuk atas")
             if(account != null){
+                Log.w("user", "masuk update")
+
                 updateUI(account)
             }
         }else{
@@ -122,7 +125,14 @@ class LoginActivity : AppCompatActivity() {
             if(it.isSuccessful){
 //                val user = firebaseAuth.currentUser
 //                userController.signInFromGoogle(user);
-                startActivity(Intent(this, HomeActivity::class.java))
+//                Log.w("user", "$user")
+//                if (user != null) {
+//                    userController.createNewUser(user.displayName, user.email, true)
+//                }
+
+                intent = Intent(this, HomeActivity::class.java)
+                intent.putExtra("userId", "")
+                startActivity(intent)
             }else{
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
