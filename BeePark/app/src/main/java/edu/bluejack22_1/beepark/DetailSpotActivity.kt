@@ -28,7 +28,7 @@ class DetailSpotActivity : AppCompatActivity() {
         binding.spotCode.text = spotCode
 
         parkingSpotController = ParkingSpotController(this)
-        parkingSpotController.setUpSpotDetail(spotCode, binding.spotCode, binding.buildingTv, binding.floorTv)
+        parkingSpotController.setUpSpotDetail(spotCode, binding.spotCode, binding.buildingTv, binding.floorTv, isAdmin, binding.btnAction, userId)
 
         setUpButton()
         setContentView(binding.root)
@@ -57,6 +57,8 @@ class DetailSpotActivity : AppCompatActivity() {
                 startActivity(intent)
             })
             binding.btnAction.text = UiString.StringResource(resId = R.string.book).asString(this)
+
+
         }
     }
 }

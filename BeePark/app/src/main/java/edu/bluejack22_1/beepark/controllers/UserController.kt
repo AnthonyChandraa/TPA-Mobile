@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
@@ -13,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import edu.bluejack22_1.beepark.HomeActivity
 import edu.bluejack22_1.beepark.R
+import edu.bluejack22_1.beepark.UIString.UiString
 import kotlin.math.log
 
 class UserController(private var context: Context) {
@@ -91,6 +93,7 @@ class UserController(private var context: Context) {
             .addOnSuccessListener {
                 if(it.isEmpty){
                     Log.w("Login", "not found")
+                    Toast.makeText(context, UiString.StringResource(resId = R.string.errorCredentials).asString(context), Toast.LENGTH_SHORT).show()
                     return@addOnSuccessListener
                 }
 
