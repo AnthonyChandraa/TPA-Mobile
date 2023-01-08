@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Vector
 
-class BookingAdapter(private var bookings: Vector<Booking>, var context: Context) :
+class BookingAdapter(private var bookings: Vector<Booking>, var isActiveBook: Boolean, var context: Context) :
     RecyclerView.Adapter<BookingAdapter.ViewHolder>() {
 
     private var parkingSpotController = ParkingSpotController(context)
@@ -77,6 +77,14 @@ class BookingAdapter(private var bookings: Vector<Booking>, var context: Context
                     " ~ " + formatTime.format(endNetDate).toString() + ")"
 
             parkingSpotController.setUpSpotDetail(booking.spotCode, spotCodeTv, buildingTv, floorTv)
+
+            if (isActiveBook){
+                btnEdit?.visibility = View.VISIBLE
+                btnCancel?.visibility = View.VISIBLE
+            } else {
+                btnEdit?.visibility = View.INVISIBLE
+                btnCancel?.visibility = View.INVISIBLE
+            }
 
         }
 
