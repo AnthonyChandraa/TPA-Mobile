@@ -1,23 +1,30 @@
 package edu.bluejack22_1.beepark.controllers
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beepark.HomeActivity
+import edu.bluejack22_1.beepark.R
+import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.adapters.BookingAdapter
 import edu.bluejack22_1.beepark.model.Booking
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Calendar
 import java.util.Date
 import java.util.Vector
 
 class BookingController(private var context: Context) {
     private var db = Firebase.firestore
     private var collectionRef = db.collection("Bookings")
+
+    private var overnightRequestController = OvernightRequestController(context, this)
 
     public fun setActiveBooking(userId: String, bookingsRv: RecyclerView, bookingAdapter: BookingAdapter){
         collectionRef
@@ -38,11 +45,12 @@ class BookingController(private var context: Context) {
                     if(currTime < endTime){
                         bookings.add(Booking(doc.id, data["spotCode"].toString(),
                             data["userId"].toString(), data["startTime"] as Timestamp,
-                            data["endTime"] as Timestamp))
+                            data["endTime"] as Timestamp, data["type"].toString()))
                     }
 
                 }
                 bookingAdapter.setBookings(bookings)
+                bookingAdapter.notifyDataSetChanged()
                 bookingsRv.adapter = bookingAdapter
             }
     }
@@ -66,11 +74,12 @@ class BookingController(private var context: Context) {
                     if(currTime >= endTime){
                         bookings.add(Booking(doc.id, data["spotCode"].toString(),
                             data["userId"].toString(), data["startTime"] as Timestamp,
-                            data["endTime"] as Timestamp))
+                            data["endTime"] as Timestamp, data["type"].toString()))
                     }
 
                 }
                 bookingAdapter.setBookings(bookings)
+                bookingAdapter.notifyDataSetChanged()
                 bookingsRv.adapter = bookingAdapter
             }
     }
@@ -90,11 +99,12 @@ class BookingController(private var context: Context) {
 
                     bookings.add(Booking(doc.id, data["spotCode"].toString(),
                         data["userId"].toString(), data["startTime"] as Timestamp,
-                        data["endTime"] as Timestamp))
+                        data["endTime"] as Timestamp, data["type"].toString()))
 
 
                 }
                 bookingAdapter.setBookings(bookings)
+                bookingAdapter.notifyDataSetChanged()
                 bookingsRv.adapter = bookingAdapter
             }
     }
@@ -119,5 +129,187 @@ class BookingController(private var context: Context) {
                 bookingAdapter.notifyDataSetChanged()
             }
         }
+    }
+
+    fun bookParkingSpot(inputStartTime: Date, inputEndTime: Date, spotCode: String, userId: String, errorTv: TextView,
+                        isUpdate:Boolean, bookingId: String?){
+
+        var startTimestamp = Timestamp(inputStartTime.toInstant().epochSecond, inputStartTime.toInstant().nano)
+        var endTimestamp = Timestamp(inputEndTime.toInstant().epochSecond, inputEndTime.toInstant().nano)
+
+        collectionRef
+            .whereEqualTo("spotCode", spotCode)
+            .get()
+            .addOnSuccessListener{ documents ->
+
+                var valid = true
+
+                if(!documents.isEmpty){
+                    for (doc in documents!!){
+
+                        if(isUpdate && doc.id == bookingId){
+                            continue
+                        }
+
+                        val data = doc.data
+                        val startTime : Timestamp = data["startTime"] as Timestamp
+                        val endTime : Timestamp = data["endTime"] as Timestamp
+
+                        var startTimeMs = startTime.seconds * 1000 + startTime.nanoseconds / 1000000
+                        var startNetDate = Date(startTimeMs)
+
+                        var range = Duration.between(startNetDate.toInstant(), inputStartTime.toInstant()).toDays().toInt()
+
+                        if(range == 0 && data["userId"].toString() == userId){
+                            errorTv.text = UiString.StringResource(resId = R.string.errorBookOneDay).asString(context)
+                            valid = false
+                            break
+                        } else if((startTimestamp > startTime && startTimestamp < endTime) ||
+                            (endTimestamp > startTime && endTimestamp < endTime)||
+                            (startTime > startTimestamp && startTime < endTimestamp) ||
+                            (endTime > startTimestamp && endTime < endTimestamp)){
+                            errorTv.text = UiString.StringResource(resId = R.string.errorNotAvail).asString(context)
+                            valid = false
+                            break
+                        }
+                    }
+                }
+
+
+                if(valid) {
+
+                    if(!isUpdate){
+                        insertNewBook(spotCode, startTimestamp, endTimestamp, userId)
+                    } else{
+                        updateBook(spotCode, startTimestamp, endTimestamp, userId, bookingId)
+                    }
+                }
+            }
+    }
+
+    private fun insertNewBook(spotCode: String, startTime: Timestamp, endTime: Timestamp, userId: String){
+
+        val intent = Intent(context, HomeActivity::class.java)
+        intent.putExtra("userId", userId)
+        intent.putExtra("fragment", "home")
+        context.startActivity(intent)
+
+        val newBooking = hashMapOf(
+            "spotCode" to spotCode,
+            "startTime" to startTime,
+            "endTime" to endTime,
+            "userId" to userId,
+            "type" to "Normal"
+        )
+
+        db.collection("Bookings")
+            .add(newBooking)
+            .addOnSuccessListener {
+                Log.w("create User", "Success")
+            }
+            .addOnFailureListener {
+                Log.w("Create User", "failed")
+            }
+    }
+
+    private fun updateBook(spotCode: String, startTime: Timestamp, endTime: Timestamp, userId: String, bookingId: String?){
+        if (bookingId != null) {
+            db.collection("Bookings").document(bookingId)
+                .update(mapOf(
+                    "spotCode" to spotCode,
+                    "startTime" to startTime,
+                    "endTime" to endTime,
+                    "userId" to userId
+                ))
+                .addOnSuccessListener {
+
+                    val intent = Intent(context, HomeActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    intent.putExtra("fragment", "myBooking")
+                    context.startActivity(intent)
+                }
+
+        }
+    }
+
+    fun deleteBooking(booking: Booking) {
+        db.collection("Bookings").document(booking.bookingId)
+            .delete()
+            .addOnSuccessListener {
+                Log.w("Delete Booking", "Success")
+            }
+            .addOnFailureListener {
+                Log.w("Delete Booking", "Failed")
+            }
+    }
+
+    fun addOvernightRequest(inputStartTime: Date, inputEndTime: Date, spotCode: String, userId: String, errorTv: TextView
+                            , reason: String){
+
+        var startTimestamp = Timestamp(inputStartTime.toInstant().epochSecond, inputStartTime.toInstant().nano)
+        var endTimestamp = Timestamp(inputEndTime.toInstant().epochSecond, inputEndTime.toInstant().nano)
+
+        collectionRef
+            .whereEqualTo("spotCode", spotCode)
+            .get()
+            .addOnSuccessListener{ documents ->
+
+                var valid = true
+
+                if(!documents.isEmpty){
+                    for (doc in documents!!){
+
+                        val data = doc.data
+                        val startTime : Timestamp = data["startTime"] as Timestamp
+                        val endTime : Timestamp = data["endTime"] as Timestamp
+
+                        var startTimeMs = startTime.seconds * 1000 + startTime.nanoseconds / 1000000
+                        var startNetDate = Date(startTimeMs)
+
+                        var range = Duration.between(startNetDate.toInstant(), inputStartTime.toInstant()).toDays().toInt()
+
+                        if((startTimestamp > startTime && startTimestamp < endTime) ||
+                            (endTimestamp > startTime && endTimestamp < endTime) ||
+                            (startTime > startTimestamp && startTime < endTimestamp) ||
+                            (endTime > startTimestamp && endTime < endTimestamp)){
+                            errorTv.text = UiString.StringResource(resId = R.string.errorNotAvail).asString(context)
+                            valid = false
+                            break
+                        }
+                    }
+                }
+
+
+                if(valid) {
+                    errorTv.text = ""
+
+                    val intent = Intent(context, HomeActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    intent.putExtra("fragment", "home")
+                    context.startActivity(intent)
+
+                    overnightRequestController.insertNewRequest(userId, spotCode, startTimestamp, endTimestamp, reason)
+
+                }
+            }
+    }
+
+    fun insertOvernightBooking(startTimestamp: Timestamp, endTimestamp: Timestamp, spotCode: String, userId: String) {
+        val newBooking = hashMapOf(
+            "spotCode" to spotCode,
+            "startTime" to startTimestamp,
+            "endTime" to endTimestamp,
+            "userId" to userId,
+            "type" to "Overnight"
+        )
+
+        db.collection("Bookings")
+            .add(newBooking)
+            .addOnSuccessListener {
+                Log.w("create User", "Success")
+            }
+            .addOnFailureListener {
+                Log.w("Create User", "failed")
+            }
     }
 }

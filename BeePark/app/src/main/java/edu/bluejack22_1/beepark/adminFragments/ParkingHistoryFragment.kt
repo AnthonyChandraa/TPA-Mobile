@@ -21,6 +21,7 @@ import edu.bluejack22_1.beepark.controllers.ParkingSpotController
 import edu.bluejack22_1.beepark.databinding.FragmentBookingHistoryBinding
 import edu.bluejack22_1.beepark.databinding.FragmentParkingHistoryBinding
 import edu.bluejack22_1.beepark.model.Booking
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
@@ -79,7 +80,7 @@ class ParkingHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener, T
     private fun setUpRecycler(){
         recyclerView = binding.bookingRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        bookingAdapter = BookingAdapter(Vector<Booking>(), false, requireContext())
+        bookingAdapter = BookingAdapter(Vector<Booking>(), false, requireContext(), userId)
 
         bookingController.setParkingHistoryBooking(userId, recyclerView, bookingAdapter)
     }
@@ -134,8 +135,16 @@ class ParkingHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener, T
 
         var dateTime = LocalDateTime.of(savedYear, savedMonth, savedDay, savedHour, savedMinute)
 
-        timePicker.text = String.format("%02d/%02d/%04d %02d:%02d",
-            savedDay, savedMonth, savedYear, savedHour, savedMinute)
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, savedYear)
+        calendar.set(Calendar.MONTH, savedMonth)
+        calendar.set(Calendar.DAY_OF_MONTH, savedDay)
+        calendar.set(Calendar.HOUR_OF_DAY, savedHour)
+        calendar.set(Calendar.MINUTE, savedMinute)
+
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aa")
+
+        timePicker.text = dateFormat.format(calendar.time)
 
         if(!isSet) {
             isSet = true

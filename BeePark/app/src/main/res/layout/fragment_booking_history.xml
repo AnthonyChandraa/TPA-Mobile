@@ -78,8 +78,6 @@
 
             android:background="@drawable/styling_input"
 
-            android:inputType="none"
-
 
             />
 

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10sp"
+    android:padding="6sp"
+
+    android:background="@drawable/border_green"
+    >
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Time"
+
+        android:gravity="start"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:fontFamily="@font/alatsi"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/buildingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Building X"
+
+        android:layout_marginTop="5sp"
+        android:layout_gravity="right"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+
+        android:fontFamily="@font/alatsi"
+        app:layout_constraintTop_toBottomOf="@id/timeTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/floorTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Floor X"
+
+        android:layout_gravity="right"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+
+        android:fontFamily="@font/alatsi"
+        app:layout_constraintTop_toBottomOf="@id/buildingTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/spotCodeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Spot XX"
+
+        android:layout_gravity="right"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/alatsi"
+        app:layout_constraintTop_toBottomOf="@id/floorTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/layoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="5sp"
+        app:layout_constraintTop_toBottomOf="@id/timeTv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btnApprove"
+            android:layout_width="90sp"
+            android:layout_height="35sp"
+            android:padding="2sp"
+
+            android:fontFamily="@font/alatsi"
+            android:textSize="11sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/persian_green"
+            android:text="@string/approve"
+            />
+
+        <Button
+            android:id="@+id/btnNotApprove"
+            android:layout_width="120sp"
+            android:layout_height="35sp"
+            android:padding="2sp"
+
+            android:layout_marginStart="10sp"
+            android:fontFamily="@font/alatsi"
+            android:textSize="11sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/red_rose"
+            android:text="@string/not_approve"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reasonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:layout_marginTop="20sp"
+        app:layout_constraintTop_toBottomOf="@id/floorTv"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/reasonLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/reason"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alatsi"
+            android:textStyle="bold"
+
+            android:textAlignment="center"
+
+            />
+
+        <TextView
+            android:id="@+id/reasonTv"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+
+            android:text="@string/reason"
+            android:textSize="12sp"
+            android:paddingTop="2sp"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp"
+            android:paddingBottom="2sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alatsi"
+
+            android:textAlignment="textStart"
+            android:background="@drawable/styling_input"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

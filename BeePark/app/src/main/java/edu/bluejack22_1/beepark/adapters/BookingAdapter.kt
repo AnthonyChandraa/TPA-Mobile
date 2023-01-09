@@ -8,16 +8,18 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beepark.R
+import edu.bluejack22_1.beepark.controllers.BookingController
 import edu.bluejack22_1.beepark.controllers.ParkingSpotController
 import edu.bluejack22_1.beepark.model.Booking
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Vector
 
-class BookingAdapter(private var bookings: Vector<Booking>, var isActiveBook: Boolean, var context: Context) :
+class BookingAdapter(private var bookings: Vector<Booking>, var isActiveBook: Boolean, var context: Context, var userId: String) :
     RecyclerView.Adapter<BookingAdapter.ViewHolder>() {
 
     private var parkingSpotController = ParkingSpotController(context)
+    private var bookingController = BookingController(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.booking_item_template, parent, false)
@@ -76,7 +78,7 @@ class BookingAdapter(private var bookings: Vector<Booking>, var isActiveBook: Bo
                     formatTime.format(startNetDate).toString() +
                     " ~ " + formatTime.format(endNetDate).toString() + ")"
 
-            parkingSpotController.setUpSpotDetail(booking.spotCode, spotCodeTv, buildingTv, floorTv)
+            parkingSpotController.setUpSpotDetail(booking.spotCode, spotCodeTv, buildingTv, floorTv, false, null, "")
 
             if (isActiveBook){
                 btnEdit?.visibility = View.VISIBLE
@@ -86,6 +88,17 @@ class BookingAdapter(private var bookings: Vector<Booking>, var isActiveBook: Bo
                 btnCancel?.visibility = View.INVISIBLE
             }
 
+            setUpButton(booking)
+        }
+
+        private fun setUpButton(booking: Booking){
+            btnEdit?.setOnClickListener(View.OnClickListener {
+                parkingSpotController.openUpdateActivity(booking, userId)
+            })
+
+            btnCancel?.setOnClickListener(View.OnClickListener {
+                bookingController.deleteBooking(booking)
+            })
         }
 
     }

@@ -39,5 +39,24 @@
     <string name="booking_history">Booking History</string>
     <string name="all_user_parking_history">All User Parking History</string>
     <string name="filter_time">Search By Time Here</string>
+    <string name="booking_title">Book Parking</string>
+    <string name="input_date">Input Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="book_btn_string">Book</string>
+    <string name="errorCredentials">Invalid Credentials</string>
+    <string name="invalid_date_before">Inputed Date Must be in Present or Future</string>
+    <string name="invalid_date_more">You can not book for more than 10 days</string>
+    <string name="invalid_book_time"><![CDATA[Start & End Time must between 4 am - 11 pm]]></string>
+    <string name="errorBookOneDay">You Can Only Book 1 spot in One Day!</string>
+    <string name="errorNotAvail">The park spot is not available for this time</string>
+    <string name="overnight_request">Overnight Request</string>
+    <string name="reason">Reason</string>
+    <string name="request">Request</string>
+    <string name="invalid_request_date">You must make request for future days</string>
+    <string name="invalid_request_range">Maximum start to end range is 24 hours!</string>
+    <string name="not_approve">Not Approve</string>
+    <string name="approve">Approve</string>
+    <string name="manage_overnight_request">Manage Overnight Request</string>
 
 </resources>
