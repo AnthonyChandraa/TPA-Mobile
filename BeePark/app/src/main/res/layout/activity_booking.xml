@@ -27,4 +27,238 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/booking_title"
+
+        android:fontFamily="@font/alatsi"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textStyle="bold"
+
+        android:layout_marginTop="20sp"
+
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        />
+
+    <LinearLayout
+        android:id="@+id/dropdowns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10sp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+
+        <Spinner
+            android:id="@+id/dropdownBuilding"
+            android:layout_width="170sp"
+            android:layout_height="48dp"
+            android:layout_margin="15sp"
+
+            android:background="@drawable/dropdown_bg"
+            />
+
+        <Spinner
+            android:id="@+id/dropdownFloor"
+            android:layout_width="100sp"
+            android:layout_height="48dp"
+            android:layout_margin="15sp"
+            android:background="@drawable/dropdown_bg" />
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/dropdownParkSpot"
+        android:layout_width="200sp"
+        android:layout_height="48dp"
+        android:layout_margin="15sp"
+        android:background="@drawable/dropdown_bg"
+
+        app:layout_constraintTop_toBottomOf="@id/dropdowns"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/datePickerLabel"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/input_date"
+        android:textSize="20sp"
+
+        android:textAlignment="textStart"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/alatsi"
+        android:textColor="@color/black"
+
+        app:layout_constraintTop_toBottomOf="@id/dropdownParkSpot"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/datePicker"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+
+        android:clickable="true"
+
+        android:layout_marginTop="5sp"
+        android:gravity="center"
+        android:fontFamily="@font/alatsi"
+        android:text=""
+        android:textSize="20sp"
+
+        android:background="@drawable/styling_input"
+
+        app:layout_constraintTop_toBottomOf="@id/datePickerLabel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/timeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        app:layout_constraintTop_toBottomOf="@id/datePicker"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/startTimeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/startTimePickerLabel"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:text="@string/start_time"
+                android:textSize="20sp"
+
+                android:textAlignment="textStart"
+                android:layout_marginEnd="20sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/alatsi"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/startTimePicker"
+                android:layout_width="150sp"
+                android:layout_height="40sp"
+
+                android:clickable="true"
+
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:fontFamily="@font/alatsi"
+                android:text=""
+                android:textSize="20sp"
+
+                android:background="@drawable/styling_input"
+
+                app:layout_constraintTop_toBottomOf="@id/datePickerLabel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/endTimeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/endTimePickerLabel"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:text="@string/end_time"
+                android:textSize="20sp"
+
+                android:textAlignment="textStart"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/alatsi"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/endTimePicker"
+                android:layout_width="150sp"
+                android:layout_height="40sp"
+
+                android:clickable="true"
+
+                android:layout_marginTop="5sp"
+                android:gravity="center"
+                android:fontFamily="@font/alatsi"
+                android:text=""
+                android:textSize="20sp"
+
+                android:background="@drawable/styling_input"
+
+                app:layout_constraintTop_toBottomOf="@id/datePickerLabel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/errorTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="5sp"
+        android:textSize="20sp"
+
+        android:textAlignment="center"
+        android:layout_marginTop="30sp"
+        android:fontFamily="@font/alatsi"
+        android:textColor="@color/red_rose"
+
+        app:layout_constraintTop_toBottomOf="@id/timeLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="90sp"
+        android:fontFamily="@font/alatsi"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        android:text="@string/book_btn_string"
+        android:backgroundTint="@color/persian_green"
+
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/timeLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import edu.bluejack22_1.beepark.adminFragments.ManageOvernightRequestFragment
 import edu.bluejack22_1.beepark.adminFragments.ParkingHistoryFragment
 import edu.bluejack22_1.beepark.controllers.UserController
 import edu.bluejack22_1.beepark.databinding.ActivityHomeBinding
 import edu.bluejack22_1.beepark.userFragments.BookingHistoryFragment
 import edu.bluejack22_1.beepark.userFragments.MyBookingFragment
+import edu.bluejack22_1.beepark.userFragments.OvernightRequestFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -19,15 +21,13 @@ class HomeActivity : AppCompatActivity() {
     private var isAdmin = false
     private lateinit var userController: UserController
     private lateinit var userId : String
+    private var fragmentType : String = "home"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(LayoutInflater.from(this))
 
-        val btnProfile = binding.btnProfile
-        btnProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("userId", intent.extras?.getString("userId").toString()))
-        }
+        setUpButtonAction()
 
        val contentFragmentTrans = supportFragmentManager.beginTransaction()
 //      authorization user/admin
@@ -46,11 +46,22 @@ class HomeActivity : AppCompatActivity() {
 //        openHomeFragment(contentFragmentTrans)
 //        openMyBookingFragment(contentFragmentTrans)
 //        openBookingHistoryFragment(contentFragmentTrans)
-        openParkingHistoryFragment(contentFragmentTrans)
+//        openOvernightRequestFragment(contentFragmentTrans)
+
+//        admin
+//        openParkingHistoryFragment(contentFragmentTrans)
+        openManageOvernightRequestFragment(contentFragmentTrans)
         setContentView(binding.root)
     }
 
-//    admin view punya
+    private fun setUpButtonAction() {
+        val btnProfile = binding.btnProfile
+        btnProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java).putExtra("userId", intent.extras?.getString("userId").toString()))
+        }
+    }
+
+    //    admin view punya
     private fun openParkingHistoryFragment(contentFragmentTrans: FragmentTransaction){
         contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         val parkingHistoryFragment = ParkingHistoryFragment()
@@ -60,6 +71,26 @@ class HomeActivity : AppCompatActivity() {
         }
         contentFragmentTrans.add(R.id.contentFragment, parkingHistoryFragment, "parkingHistoryFragment").commitAllowingStateLoss()
 
+    }
+
+    private fun openManageOvernightRequestFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val manageOvernightRequestFragment = ManageOvernightRequestFragment()
+        manageOvernightRequestFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, manageOvernightRequestFragment, "manageOvernightRequestFragment").commitAllowingStateLoss()
+    }
+
+    private fun openOvernightRequestFragment(contentFragmentTrans: FragmentTransaction){
+        contentFragmentTrans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        val overnightRequestFragment = OvernightRequestFragment()
+        overnightRequestFragment.arguments = Bundle().apply {
+            putBoolean("isAdmin", isAdmin)
+            putString("userId", userId)
+        }
+        contentFragmentTrans.add(R.id.contentFragment, overnightRequestFragment, "overnightRequestFragment").commitAllowingStateLoss()
     }
 
     private fun openBookingHistoryFragment(contentFragmentTrans: FragmentTransaction){
