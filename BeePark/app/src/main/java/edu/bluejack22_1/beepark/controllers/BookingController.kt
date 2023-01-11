@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -12,7 +13,9 @@ import edu.bluejack22_1.beepark.HomeActivity
 import edu.bluejack22_1.beepark.R
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.adapters.BookingAdapter
+import edu.bluejack22_1.beepark.adapters.NotificationAdapter
 import edu.bluejack22_1.beepark.model.Booking
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
@@ -310,6 +313,36 @@ class BookingController(private var context: Context) {
             }
             .addOnFailureListener {
                 Log.w("Create User", "failed")
+            }
+    }
+
+    fun getNotifications(bookedRv: RecyclerView, notificationAdapter: NotificationAdapter, spotCode: String) {
+        db.collection("Bookings")
+            .whereEqualTo("spotCode", spotCode)
+            .addSnapshotListener {
+                    docs, error ->
+                if(error != null) Log.e("error", "$error")
+                var bookedDates: ArrayList<String> = ArrayList()
+                if (docs != null) {
+                    for(doc in docs){
+                        val data = doc.data
+                        val startTime : Timestamp = data["startTime"] as Timestamp
+                        var startTimeMs = startTime.seconds * 1000 + startTime.nanoseconds / 1000000
+                        var startNetDate = Date(startTimeMs)
+
+                        var dateFormat = SimpleDateFormat("dd/MM/yyyy")
+
+                        if(startTime >= Timestamp.now()){
+                            bookedDates.add(dateFormat.format(startNetDate))
+                        }
+                    }
+                }
+
+                notificationAdapter.setNotifications(bookedDates)
+                notificationAdapter.notifyDataSetChanged()
+
+                bookedRv.layoutManager = LinearLayoutManager(context)
+                bookedRv.adapter = notificationAdapter
             }
     }
 }

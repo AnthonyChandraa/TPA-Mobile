@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.controllers.UserController
@@ -34,10 +35,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnSignInWithGoogle : SignInButton;
     private lateinit var googleSignInClient : GoogleSignInClient;
     private lateinit var userController: UserController
+    val db = Firebase.firestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setContentView(R.layout.activity_login)
         firebaseAuth = Firebase.auth
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -123,16 +127,30 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful){
-//                val user = firebaseAuth.currentUser
-//                userController.signInFromGoogle(user);
-//                Log.w("user", "$user")
-//                if (user != null) {
-//                    userController.createNewUser(user.displayName, user.email, true)
-//                }
+                val user = firebaseAuth.currentUser
+                if (user != null) {
+                    val docRef = db.collection("Users").document(user.uid.toString())
 
-                intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("userId", "")
-                startActivity(intent)
+                    docRef.get().addOnCompleteListener{ task ->
+                        if(task.isSuccessful){
+                            val document = task.result
+                            if(document != null){
+                                if(document.exists()){
+
+                                }else{
+                                    userController.createNewUser(user.displayName, user.email, true, user.photoUrl.toString())
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+//                intent = Intent(this, HomeActivity::class.java)
+//                intent.putExtra("userId", "")
+//                startActivity(intent)
             }else{
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
