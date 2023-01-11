@@ -6,25 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".ReportFeedbackActivity">
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="40sp"
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
 
-        android:layout_margin="10sp"
-        android:fontFamily="@font/alatsi"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:textSize="15sp"
-        android:textStyle="bold"
+            android:layout_margin="10sp"
+            android:fontFamily="@font/alatsi"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textStyle="bold"
 
-        android:text="@string/back_to_home"
+            android:text="@string/back_to_home"
+            android:background="@drawable/back_btn"
 
-        android:background="@drawable/back_btn"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+    <TextView
+        android:id="@+id/titleReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/report_feedback"
 
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+            android:fontFamily="@font/alatsi"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_marginTop="30sp"
+
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+
+        <EditText
+            android:id="@+id/etTextReport"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+
+            android:layout_marginTop="30sp"
+            android:layout_marginEnd="30sp"
+            android:layout_marginStart="30sp"
+
+            android:background="@drawable/styling_input"
+            android:textSize="20sp"
+
+            app:layout_constraintTop_toBottomOf="@id/titleReport"
+
+
+            />
+
+        <Spinner
+            android:id="@+id/dropdownReportOrFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="30sp"
+
+            android:background="@drawable/dropdown_bg"
+
+            app:layout_constraintTop_toBottomOf="@id/etTextReport"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <Button
+            android:id="@+id/btnSubmitReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/submit"
+
+            android:layout_margin="30sp"
+            app:layout_constraintTop_toBottomOf="@id/dropdownReportOrFeedback"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

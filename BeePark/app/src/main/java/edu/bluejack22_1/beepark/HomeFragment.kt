@@ -40,6 +40,8 @@ class HomeFragment : Fragment() {
 
         setUpButtonAction()
         setUpDropdownAndRv()
+
+
         return binding.root;
     }
 

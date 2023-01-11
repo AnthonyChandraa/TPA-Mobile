@@ -9,11 +9,14 @@ import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beepark.adapters.OvernightRequestAdapter
 import edu.bluejack22_1.beepark.model.Booking
 import edu.bluejack22_1.beepark.model.OvernightRequest
+import edu.bluejack22_1.beepark.model.User
+import java.text.SimpleDateFormat
 import java.util.*
 
 class OvernightRequestController (private var context: Context, var bookingController: BookingController) {
     private var db = Firebase.firestore
     private var collectionRef = db.collection("OvernightRequests")
+    private var userController: UserController = UserController(context)
 
     fun insertNewRequest(
         userId: String,
@@ -35,7 +38,7 @@ class OvernightRequestController (private var context: Context, var bookingContr
         collectionRef
             .add(newRequest)
             .addOnSuccessListener {
-                Log.w("create request", "Success")
+
             }
             .addOnFailureListener {
                 Log.w("Create request", "failed")
@@ -47,10 +50,20 @@ class OvernightRequestController (private var context: Context, var bookingContr
                        spotCode: String, userId: String, isApproved: Boolean) {
         if(isApproved) bookingController.insertOvernightBooking(startTimestamp, endTimestamp, spotCode, userId)
 
+            var nowTimeStamp = Timestamp.now().seconds * 1000 + Timestamp.now().nanoseconds / 1000000
+            var nowDate = Date(nowTimeStamp)
+            var dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aa")
+
             collectionRef.document(requestId)
                 .delete()
-                .addOnFailureListener {
-                    Log.w("update request", "Success")
+                .addOnSuccessListener {
+                    if(isApproved){
+                        userController.insertNotification(userId, "Overnight Request",
+                            "Approved", dateFormat.format(nowDate))
+                    } else{
+                        userController.insertNotification(userId, "Overnight Request",
+                            "Declined", dateFormat.format(nowDate))
+                    }
                 }
                 .addOnFailureListener {
                     Log.w("update request", "Failed")
