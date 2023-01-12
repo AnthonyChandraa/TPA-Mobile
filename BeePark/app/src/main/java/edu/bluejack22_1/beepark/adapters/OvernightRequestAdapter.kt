@@ -59,6 +59,7 @@ class OvernightRequestAdapter(private var overnightRequests: Vector<OvernightReq
             buildingTv = itemView.findViewById(R.id.buildingTv)
             floorTv = itemView.findViewById(R.id.floorTv)
             spotCodeTv = itemView.findViewById(R.id.spotCodeTv)
+            reasonTv = itemView.findViewById(R.id.reasonTv)
 
             btnApprove = itemView.findViewById(R.id.btnApprove)
             btnNotApprove = itemView.findViewById(R.id.btnNotApprove)

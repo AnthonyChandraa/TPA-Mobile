@@ -31,7 +31,7 @@ class UserController(private var context: Context) {
             "role" to "user",
             "username" to username,
             "imageUrl" to imageUrl,
-            "vehicleLicenseNumber" to "-"
+            "vehicleLicenseNumber" to ""
         )
 
         db.collection("Users")
@@ -60,7 +60,7 @@ class UserController(private var context: Context) {
                 "role" to "user",
                 "username" to username,
                 "imageUrl" to photoUrl,
-                "vehicleLicenseNumber" to "-"
+                "vehicleLicenseNumber" to ""
             )
 
             db.collection("Users")
@@ -116,14 +116,17 @@ class UserController(private var context: Context) {
             }
     }
 
-    public fun setUsername(usernameTv:TextView, userId: String){
+    public fun setUsername(usernameTv:TextView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                 document ->
-                    if(document != null)
-                        usernameTv.text = document.data?.get("username").toString()
+                    if(document != null){
+                        var username =  document.data?.get("username").toString()
+                        usernameTv.text = username
+                        intent.putExtra("username", username)
+                    }
             }
             .addOnFailureListener {
                 Log.w("Username", "failed")
@@ -156,21 +159,23 @@ class UserController(private var context: Context) {
 
 
 
-    public fun setEmail(emailTv:TextView, userId: String){
+    public fun setEmail(emailTv:TextView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                     document ->
-                if(document != null)
+                if(document != null){
                     emailTv.text = document.data?.get("email").toString()
+                    intent.putExtra("email", document.data?.get("email").toString())
+                }
             }
             .addOnFailureListener {
                 Log.w("Email", "failed")
             }
     }
 
-    public fun setProfilePicture(profileIv:ImageView, userId: String){
+    public fun setProfilePicture(profileIv:ImageView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
@@ -183,6 +188,8 @@ class UserController(private var context: Context) {
                             .placeholder(R.drawable.ic_person)
                             .error(R.drawable.ic_person)
                             .into(profileIv);
+
+                        intent.putExtra("imageUrl", document.data?.get("imageUrl").toString())
                     }else{
                         profileIv.setBackgroundResource(R.drawable.ic_person)
                     }
@@ -199,16 +206,17 @@ class UserController(private var context: Context) {
         return db.collection("Users").document(userId)
     }
 
-    fun setLicensePlate(profileLicensePlate: TextView, userId: String) {
+    fun setLicensePlate(profileLicensePlate: TextView, userId: String, intent: Intent) {
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                     document ->
                 if(document != null){
-                    if(document.data?.get("licensePlate") != null){
+                    if(document.data?.get("vehicleLicenseNumber") != ""){
                         profileLicensePlate.visibility = View.VISIBLE
-                        profileLicensePlate.text = document.data?.get("licensePlate").toString()
+                        profileLicensePlate.text = document.data?.get("vehicleLicenseNumber").toString()
+                        intent.putExtra("licensePlate", document.data?.get("vehicleLicenseNumber").toString())
                     }
                 }
             }

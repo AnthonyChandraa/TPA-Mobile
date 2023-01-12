@@ -49,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
 
         userId = intent.extras?.getString("userId").toString()
         userController = UserController(this)
-        userController.setUsername(binding.usernameTv, userId)
+        userController.setUsername(binding.usernameTv, userId, Intent(this, HomeActivity::class.java))
 
         val userRef = userController.getUserRef(userId)
 

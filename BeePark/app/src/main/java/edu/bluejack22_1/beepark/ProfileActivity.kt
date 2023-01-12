@@ -36,15 +36,16 @@ class ProfileActivity : AppCompatActivity() {
         profileLicensePlate = findViewById(R.id.licensePlateTv)
         btnNotification = findViewById(R.id.btnNotification)
 
-
+        val intentUpdate = Intent(this, UpdateProfileActivity::class.java)
         userId = intent.extras?.getString("userId").toString()
         userController = UserController(this)
-        userController.setUsername(profileUsername, userId)
-        userController.setEmail(profileEmail, userId)
-        userController.setProfilePicture(profileImage, userId)
+        userController.setUsername(profileUsername, userId, intentUpdate)
+        userController.setEmail(profileEmail, userId, intentUpdate)
+        userController.setProfilePicture(profileImage, userId, intentUpdate)
 
         profileLicensePlate.visibility = View.INVISIBLE
-        userController.setLicensePlate(profileLicensePlate, userId)
+        userController.setLicensePlate(profileLicensePlate, userId, intentUpdate)
+
 
         val userRef = userController.getUserRef(userId)
 
@@ -81,7 +82,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val btnUpdateProfile = findViewById<Button>(R.id.btnUpdateProfile)
         btnUpdateProfile.setOnClickListener{
-            startActivity(Intent(this, UpdateProfileActivity::class.java))
+            startActivity(intentUpdate.putExtra("userId", userId))
         }
     }
 

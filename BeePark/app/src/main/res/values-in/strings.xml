@@ -66,4 +66,8 @@
     <string name="licenseplate_default">Nomor Kendaraan</string>
     <string name="notifications">Pemberitahuan</string>
     <string name="back_to_profile">Kembali ke Profil</string>
+    <string name="upload_image">Unggah Foto</string>
+    <string name="licenseplate">Nomor Kendaraan</string>
+    <string name="update">Ubah</string>
+    <string name="Uploaded">Terunggah</string>
 </resources>

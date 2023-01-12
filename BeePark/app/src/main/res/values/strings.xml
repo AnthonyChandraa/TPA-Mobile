@@ -72,5 +72,6 @@
     <string name="upload_image">Upload Image</string>
     <string name="licenseplate">License Plate</string>
     <string name="update">Update</string>
+    <string name="Uploaded">Uploaded</string>
 
 </resources>
