@@ -7,11 +7,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import edu.bluejack22_1.beepark.controllers.UserController
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -19,6 +21,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth;
     private lateinit var userController: UserController
     private lateinit var userId :String;
+    private var isGoogle: Boolean = false
     private lateinit var profileUsername : TextView;
     private lateinit var profileEmail : TextView;
     private lateinit var profileImage : ImageView;
@@ -36,15 +39,18 @@ class ProfileActivity : AppCompatActivity() {
         profileLicensePlate = findViewById(R.id.licensePlateTv)
         btnNotification = findViewById(R.id.btnNotification)
 
-
+        val intentUpdate = Intent(this, UpdateProfileActivity::class.java)
         userId = intent.extras?.getString("userId").toString()
+        isGoogle = intent.extras?.getBoolean("isGoogle").toString().toBoolean()
+
         userController = UserController(this)
-        userController.setUsername(profileUsername, userId)
-        userController.setEmail(profileEmail, userId)
-        userController.setProfilePicture(profileImage, userId)
+        userController.setUsername(profileUsername, userId, intentUpdate)
+        userController.setEmail(profileEmail, userId, intentUpdate)
+        userController.setProfilePicture(profileImage, userId, intentUpdate)
 
         profileLicensePlate.visibility = View.INVISIBLE
-        userController.setLicensePlate(profileLicensePlate, userId)
+        userController.setLicensePlate(profileLicensePlate, userId, intentUpdate)
+
 
         val userRef = userController.getUserRef(userId)
 
@@ -66,6 +72,15 @@ class ProfileActivity : AppCompatActivity() {
 
         btnLogout.setOnClickListener{
             firebaseAuth.signOut()
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+            val googlesigninclient = baseContext?.let { it1 -> GoogleSignIn.getClient(it1, gso) }
+            if (googlesigninclient != null) {
+                googlesigninclient.signOut()
+            }
             finishAndRemoveTask()
             startActivity(Intent(this, LoginActivity::class.java))
         }
@@ -81,7 +96,9 @@ class ProfileActivity : AppCompatActivity() {
 
         val btnUpdateProfile = findViewById<Button>(R.id.btnUpdateProfile)
         btnUpdateProfile.setOnClickListener{
-            startActivity(Intent(this, UpdateProfileActivity::class.java))
+            intentUpdate.putExtra("isGoogle", isGoogle)
+            intentUpdate.putExtra("userId", userId)
+            startActivity(intentUpdate)
         }
     }
 

@@ -19,8 +19,8 @@
     <string name="errorEmpty">Harap isi semua bagian!</string>
     <string name="errorLogin">Gagal masuk</string>
     <string name="errorPasswordLength">Password harus 8-20 huruf!</string>
-    <string name="errorRegis">Gagal registrasi</string>
-    <string name="errorConfirmPassword">Password salah</string>
+    <string name="errorRegis">Gagal registrasi (Email harus Unik)</string>
+    <string name="errorConfirmPassword">Konfirmasi Password Tidak Sama dengan Password</string>
     <string name="report_feedback">Kritik/Saran</string>
     <string name="loading">Harap Menunggu</string>
     <string name="info">Informasi</string>
@@ -44,7 +44,7 @@
     <string name="errorCredentials">Kredensial salah</string>
     <string name="invalid_date_before">Tanggal harus sekarang atau nanti</string>
     <string name="invalid_date_more">Anda tidak bisa pesan untuk lebih dari 10 hari</string>
-    <string name="invalid_book_time"><![CDATA[Start & End Time must between 4 am - 11 pm]]></string>
+    <string name="invalid_book_time"><![CDATA[Waktu mulai dan berakhir harus diantara Pukul 4 Pagi dan Pukul 11 Malam]]></string>
     <string name="errorBookOneDay">Hanya bisa 1 pesanan di satu hari</string>
     <string name="errorNotAvail">Tidak ada tempat parkir tersedia</string>
     <string name="overnight_request">Permintaan Parkir inap</string>
@@ -66,4 +66,9 @@
     <string name="licenseplate_default">Nomor Kendaraan</string>
     <string name="notifications">Pemberitahuan</string>
     <string name="back_to_profile">Kembali ke Profil</string>
+    <string name="upload_image">Unggah Foto</string>
+    <string name="licenseplate">Nomor Kendaraan</string>
+    <string name="update">Ubah</string>
+    <string name="Uploaded">Terunggah</string>
+    <string name="open_notifications">Buka Notifikasi</string>
 </resources>

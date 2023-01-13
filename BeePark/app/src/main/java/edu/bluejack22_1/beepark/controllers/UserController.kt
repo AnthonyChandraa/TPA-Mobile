@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -31,7 +30,7 @@ class UserController(private var context: Context) {
             "role" to "user",
             "username" to username,
             "imageUrl" to imageUrl,
-            "vehicleLicenseNumber" to "-"
+            "vehicleLicenseNumber" to ""
         )
 
         db.collection("Users")
@@ -39,7 +38,7 @@ class UserController(private var context: Context) {
             .addOnSuccessListener {
                 Log.w("Create User", "success")
                 if(isGoogle){
-                    loginUser(email)
+                    loginUser(email, isGoogle)
                 }
             }
             .addOnFailureListener {
@@ -49,34 +48,34 @@ class UserController(private var context: Context) {
 
     }
 
-    public fun signInFromGoogle(user: FirebaseUser?){
-        val username = user?.displayName
-        val email = user?.email
-        val photoUrl = user?.photoUrl
-
-        if(!checkIfUserExists(email)){
-            val newUser = hashMapOf(
-                "email" to email,
-                "role" to "user",
-                "username" to username,
-                "imageUrl" to photoUrl,
-                "vehicleLicenseNumber" to "-"
-            )
-
-            db.collection("Users")
-                .add(newUser)
-                .addOnSuccessListener {
-                    Log.w("Create User", "success")
-                    loginUser(email)
-                }
-                .addOnFailureListener {
-                    Log.w("Create User", "failed")
-                }
-
-        }else{
-            loginUser(email)
-        }
-    }
+//    public fun signInFromGoogle(user: FirebaseUser?){
+//        val username = user?.displayName
+//        val email = user?.email
+//        val photoUrl = user?.photoUrl
+//
+//        if(!checkIfUserExists(email)){
+//            val newUser = hashMapOf(
+//                "email" to email,
+//                "role" to "user",
+//                "username" to username,
+//                "imageUrl" to photoUrl,
+//                "vehicleLicenseNumber" to ""
+//            )
+//
+//            db.collection("Users")
+//                .add(newUser)
+//                .addOnSuccessListener {
+//                    Log.w("Create User", "success")
+//                    loginUser(email)
+//                }
+//                .addOnFailureListener {
+//                    Log.w("Create User", "failed")
+//                }
+//
+//        }else{
+//            loginUser(email)
+//        }
+//    }
 
     private fun checkIfUserExists(email: String?): Boolean {
         var userExists = true;
@@ -93,7 +92,7 @@ class UserController(private var context: Context) {
         return userExists
     }
 
-    public fun loginUser(email: String?){
+    public fun loginUser(email: String?, isGoogle: Boolean){
         db.collection("Users")
             .whereEqualTo("email", email)
             .get()
@@ -107,6 +106,7 @@ class UserController(private var context: Context) {
                 for(document in it){
                     var intent = Intent(context, HomeActivity::class.java)
                     intent.putExtra("userId", document.id)
+                    intent.putExtra("isGoogle", isGoogle)
                     context.startActivity(intent)
                     return@addOnSuccessListener
                 }
@@ -116,14 +116,17 @@ class UserController(private var context: Context) {
             }
     }
 
-    public fun setUsername(usernameTv:TextView, userId: String){
+    public fun setUsername(usernameTv:TextView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                 document ->
-                    if(document != null)
-                        usernameTv.text = document.data?.get("username").toString()
+                    if(document != null){
+                        var username =  document.data?.get("username").toString()
+                        usernameTv.text = username
+                        intent.putExtra("username", username)
+                    }
             }
             .addOnFailureListener {
                 Log.w("Username", "failed")
@@ -156,21 +159,23 @@ class UserController(private var context: Context) {
 
 
 
-    public fun setEmail(emailTv:TextView, userId: String){
+    public fun setEmail(emailTv:TextView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                     document ->
-                if(document != null)
+                if(document != null){
                     emailTv.text = document.data?.get("email").toString()
+                    intent.putExtra("email", document.data?.get("email").toString())
+                }
             }
             .addOnFailureListener {
                 Log.w("Email", "failed")
             }
     }
 
-    public fun setProfilePicture(profileIv:ImageView, userId: String){
+    public fun setProfilePicture(profileIv:ImageView, userId: String, intent: Intent){
         db.collection("Users")
             .document(userId)
             .get()
@@ -183,6 +188,8 @@ class UserController(private var context: Context) {
                             .placeholder(R.drawable.ic_person)
                             .error(R.drawable.ic_person)
                             .into(profileIv);
+
+                        intent.putExtra("imageUrl", document.data?.get("imageUrl").toString())
                     }else{
                         profileIv.setBackgroundResource(R.drawable.ic_person)
                     }
@@ -199,16 +206,17 @@ class UserController(private var context: Context) {
         return db.collection("Users").document(userId)
     }
 
-    fun setLicensePlate(profileLicensePlate: TextView, userId: String) {
+    fun setLicensePlate(profileLicensePlate: TextView, userId: String, intent: Intent) {
         db.collection("Users")
             .document(userId)
             .get()
             .addOnSuccessListener {
                     document ->
                 if(document != null){
-                    if(document.data?.get("licensePlate") != null){
+                    if(document.data?.get("vehicleLicenseNumber") != ""){
                         profileLicensePlate.visibility = View.VISIBLE
-                        profileLicensePlate.text = document.data?.get("licensePlate").toString()
+                        profileLicensePlate.text = document.data?.get("vehicleLicenseNumber").toString()
+                        intent.putExtra("licensePlate", document.data?.get("vehicleLicenseNumber").toString())
                     }
                 }
             }

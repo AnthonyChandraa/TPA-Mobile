@@ -25,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
     private var pressedTime = 0L
     private lateinit var binding: ActivityHomeBinding
     private var isAdmin = false
+    private var isGoogle = false
     private lateinit var userController: UserController
     private lateinit var userId : String
     private var fragmentType : String = "home"
@@ -33,7 +34,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(LayoutInflater.from(this))
 
-        setUpButtonAction()
 
 
 
@@ -48,8 +48,10 @@ class HomeActivity : AppCompatActivity() {
 //        }
 
         userId = intent.extras?.getString("userId").toString()
+        isGoogle = intent.extras?.getBoolean("isGoogle").toString().toBoolean()
+
         userController = UserController(this)
-        userController.setUsername(binding.usernameTv, userId)
+        userController.setUsername(binding.usernameTv, userId, Intent(this, HomeActivity::class.java))
 
         val userRef = userController.getUserRef(userId)
 
@@ -69,6 +71,7 @@ class HomeActivity : AppCompatActivity() {
                     setUpNavBar()
                 }
 
+        setUpButtonAction()
         setContentView(binding.root)
     }
 
@@ -159,7 +162,10 @@ class HomeActivity : AppCompatActivity() {
         val btnProfile = binding.btnProfile
 
         btnProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java).putExtra("userId", intent.extras?.getString("userId").toString()))
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("isGoogle", isGoogle)
+            startActivity(intent)
         }
     }
 

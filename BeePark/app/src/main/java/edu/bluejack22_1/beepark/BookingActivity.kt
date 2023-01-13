@@ -5,11 +5,9 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
-import com.google.firebase.Timestamp
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.controllers.BookingController
 import edu.bluejack22_1.beepark.controllers.BuildingController
@@ -20,7 +18,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
 import java.util.*
-import kotlin.math.min
 
 class BookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -121,10 +118,10 @@ class BookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         })
 
         if(isUpdate){
-            binding.btnBook.text = "Update"
+            binding.btnBook.text = UiString.StringResource(R.string.update).asString(this)
             binding.btnBook.backgroundTintList = this.resources.getColorStateList(R.color.blue_crayola, this.theme)
         } else {
-            binding.btnBook.text = "Book"
+            binding.btnBook.text = UiString.StringResource(R.string.book).asString(this)
             binding.btnBook.backgroundTintList = this.resources.getColorStateList(R.color.persian_green, this.theme)
 
         }
@@ -157,6 +154,9 @@ class BookingActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         }
 
         if(savedStartHour < 4 || savedEndHour > 23 || savedStartHour > 23 || savedEndHour < 4){
+            binding.errorTv.text = UiString.StringResource(resId = R.string.invalid_book_time).asString(this)
+            return
+        }else if(savedEndHour >= 23 && savedEndMinute > 0){
             binding.errorTv.text = UiString.StringResource(resId = R.string.invalid_book_time).asString(this)
             return
         }

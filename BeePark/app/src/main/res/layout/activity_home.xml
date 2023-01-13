@@ -67,8 +67,9 @@
 
             <ImageView
                 android:id="@+id/profileIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_person" />
 

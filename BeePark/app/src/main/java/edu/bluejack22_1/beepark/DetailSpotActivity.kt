@@ -8,7 +8,6 @@ import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.adapters.NotificationAdapter
 import edu.bluejack22_1.beepark.controllers.BookingController
 import edu.bluejack22_1.beepark.controllers.ParkingSpotController
-import edu.bluejack22_1.beepark.controllers.UserController
 import edu.bluejack22_1.beepark.databinding.ActivityDetailSpotBinding
 
 class DetailSpotActivity : AppCompatActivity() {
