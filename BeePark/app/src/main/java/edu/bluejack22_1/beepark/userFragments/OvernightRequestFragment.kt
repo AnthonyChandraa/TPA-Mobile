@@ -9,19 +9,15 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack22_1.beepark.R
 import edu.bluejack22_1.beepark.UIString.UiString
-import edu.bluejack22_1.beepark.adapters.BookingAdapter
 import edu.bluejack22_1.beepark.controllers.BookingController
 import edu.bluejack22_1.beepark.controllers.BuildingController
 import edu.bluejack22_1.beepark.controllers.ParkingSpotController
 import edu.bluejack22_1.beepark.databinding.FragmentOvernightRequestBinding
-import edu.bluejack22_1.beepark.model.Booking
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDate
-import java.time.Period
 import java.util.*
 
 class OvernightRequestFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {

@@ -6,8 +6,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.controllers.UserController
@@ -25,22 +25,28 @@ class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var licensePlate: String
 
+    private var isGoogle:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityUpdateProfileBinding.inflate(this.layoutInflater)
 
-
-
         userId = intent.extras?.getString("userId").toString()
         username = intent.extras?.getString("username").toString()
         email = intent.extras?.getString("email").toString()
         licensePlate = intent.extras?.getString("licensePlate").toString()
 
+        isGoogle = intent.extras?.getBoolean("isGoogle").toString().toBoolean()
+
         binding.usernameInput.setText(username)
         binding.emailInput.setText(email)
 
+        if(isGoogle){
+            binding.emailInput.visibility = View.INVISIBLE
+        } else{
+            binding.emailInput.visibility = View.VISIBLE
+        }
 
         if(licensePlate != "null"){
             binding.licensePlateInput.setText(licensePlate)
@@ -77,9 +83,15 @@ class UpdateProfileActivity : AppCompatActivity() {
     }
 
     private fun setUpdate(urlUpload: String) {
-        Log.w("UserID", "$userId")
-        userController.updateUser(binding.usernameInput.text.toString(), binding.emailInput.text.toString(),
-            binding.licensePlateInput.text.toString(), urlUpload, userId)
+//        Log.w("UserID", "$userId")
+        if(isGoogle){
+            userController.updateUser(binding.usernameInput.text.toString(), email,
+                binding.licensePlateInput.text.toString(), urlUpload, userId)
+
+        } else {
+            userController.updateUser(binding.usernameInput.text.toString(), binding.emailInput.text.toString(),
+                binding.licensePlateInput.text.toString(), urlUpload, userId)
+        }
     }
 
     private fun getImage(){

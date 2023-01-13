@@ -17,9 +17,6 @@ import edu.bluejack22_1.beepark.adapters.NotificationAdapter
 import edu.bluejack22_1.beepark.model.Booking
 import java.text.SimpleDateFormat
 import java.time.Duration
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.Date
 import java.util.Vector
 
@@ -112,21 +109,20 @@ class BookingController(private var context: Context) {
             }
     }
 
-    fun searchTime(bookings:Vector<Booking>, dateTime: LocalDateTime, bookingAdapter: BookingAdapter) {
+    fun searchTime(bookings:Vector<Booking>, dateTime: Date, bookingAdapter: BookingAdapter) {
         var newVector = Vector<Booking>()
         bookingAdapter.setBookings(newVector)
         bookingAdapter.notifyDataSetChanged()
 
-        var searchTime = java.sql.Timestamp(dateTime.toEpochSecond(ZoneId.systemDefault().rules.getOffset(
-            Instant.now())))
+        var searchDate = Timestamp(dateTime.toInstant().epochSecond, dateTime.toInstant().nano)
 
 
         for(booking in bookings){
-            var startTimeMs = (booking.startTime.seconds * 1000 + booking.startTime.nanoseconds / 1000000)/1000
-            var endTimeMs = (booking.endTime.seconds * 1000 + booking.endTime.nanoseconds / 1000000)/1000
-            var searchTimeMs = (Timestamp(searchTime).seconds * 1000 + Timestamp(searchTime).nanoseconds / 1000000)
-            Log.w("TimeStamp", "$searchTimeMs $startTimeMs $endTimeMs")
-            if(searchTimeMs == startTimeMs || searchTimeMs == endTimeMs){
+//            var startTimeMs = (booking.startTime.seconds * 1000 + booking.startTime.nanoseconds / 1000000)
+//            var endTimeMs = (booking.endTime.seconds * 1000 + booking.endTime.nanoseconds / 1000000)
+//            var searchTimeMs = (Timestamp(searchTime).seconds * 1000 + Timestamp(searchTime).nanoseconds / 1000000)
+            Log.w("TimeStamp", "$searchDate ${booking.startTime} ${booking.endTime}")
+            if(booking.startTime <= searchDate && booking.endTime >= searchDate){
                 newVector.add(booking)
                 bookingAdapter.setBookings(newVector)
                 bookingAdapter.notifyDataSetChanged()
