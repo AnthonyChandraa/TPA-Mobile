@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,6 +22,8 @@ class RegisActivity : AppCompatActivity() {
     private lateinit var etEmail : EditText
     private lateinit var etPassword : EditText
     private lateinit var etConfirm : EditText
+
+    private lateinit var errorTv: TextView
     private lateinit var btnRegister : Button
     private lateinit var btnToLogin : Button
     private lateinit var userController: UserController
@@ -42,6 +45,7 @@ class RegisActivity : AppCompatActivity() {
         etConfirm = findViewById(R.id.confirmInput)
         btnRegister = findViewById(R.id.btnSubmitRegister)
         btnToLogin = findViewById(R.id.btnLogin)
+        errorTv = findViewById(R.id.errorTv)
 
         btnToLogin.setOnClickListener{
             finishAndRemoveTask()
@@ -54,28 +58,30 @@ class RegisActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
             val confirm  = etConfirm.text.toString().trim()
 
-            if(username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty()){
-                if(password == confirm){
-                    if(password.length in 8..20){
+            if(username.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()){
+                errorTv.text =  UiString.StringResource(resId = R.string.errorEmpty).asString(this)
+//                Toast.makeText(this, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
+            }else if(password == confirm){
+                    if(password.length < 8 || password.length > 20){
+                        errorTv.text =  UiString.StringResource(resId = R.string.errorPasswordLength).asString(this)
+                    } else {
                         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
                             if(task.isSuccessful){
-                                userController.createNewUser(username, email, false)
+                                userController.createNewUser(username, email, false, "")
                                 startActivity(Intent(this, LoginActivity::class.java))
 
                             }else{
                                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                                Toast.makeText(this, UiString.StringResource(resId = R.string.errorRegis).asString(this), Toast.LENGTH_SHORT).show()
+                                errorTv.text =   UiString.StringResource(resId = R.string.errorRegis).asString(this)
+//                                Toast.makeText(this, UiString.StringResource(resId = R.string.errorRegis).asString(this), Toast.LENGTH_SHORT).show()
                             }
                         }
-                    }else{
-                        Toast.makeText(this, UiString.StringResource(resId = R.string.errorPasswordLength).asString(this), Toast.LENGTH_SHORT).show()
                     }
-                }else{
-                    Toast.makeText(this, UiString.StringResource(resId = R.string.errorConfirmPassword).asString(this), Toast.LENGTH_SHORT).show()
-                }
             }else{
-                Toast.makeText(this, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
+                errorTv.text =   UiString.StringResource(resId = R.string.errorConfirmPassword).asString(this)
+//                Toast.makeText(this, UiString.StringResource(resId = R.string.errorConfirmPassword).asString(this), Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 }

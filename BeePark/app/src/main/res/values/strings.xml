@@ -10,8 +10,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confPassword">Confirm Password</string>
-    <string name="welcome_message">Welcome to BeePark Application! Help you finding parking spot much easier!</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="welcome_message">Welcome to BeePark Application! Help you finding parking spot much easier\!</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="LabelBookParking">Book Parking Spots</string>
     <string name="close">Close</string>
@@ -19,14 +19,14 @@
     <string name="profile">Profile</string>
     <string name="update_profile">Update Profile</string>
 
-    <string name="errorEmpty" type="id">Please Fill All The Blanks!</string>
+    <string name="errorEmpty" type="id">Please Fill All The Blanks\!</string>
     <string name="errorLogin" type="id">Login Failed</string>
-    <string name="errorPasswordLength" type="id">Password Must Be 8–20 Characters!</string>
-    <string name="errorRegis" type="id">Register Failed</string>
+    <string name="errorPasswordLength" type="id">Password Must Be 8–20 Characters\!</string>
+    <string name="errorRegis" type="id">Register Failed (Email must be Unique)</string>
     <string name="errorConfirmPassword" type="id">Password Mismatch</string>
     <string name="report_feedback">Report/Feedback</string>
     <string name="loading">Loading</string>
-    <string name="info">Info:</string>
+    <string name="info">Booked On:</string>
     <string name="book">Book</string>
     <string name="back_to_home">Back To Home</string>
     <string name="open">Open</string>
@@ -54,9 +54,24 @@
     <string name="reason">Reason</string>
     <string name="request">Request</string>
     <string name="invalid_request_date">You must make request for future days</string>
-    <string name="invalid_request_range">Maximum start to end range is 24 hours!</string>
+    <string name="invalid_request_range">Maximum start to end range is 24 hours\!</string>
     <string name="not_approve">Not Approve</string>
     <string name="approve">Approve</string>
     <string name="manage_overnight_request">Manage Overnight Request</string>
-
+    <string name="parking_reminder">Parking reminder</string>
+    <string name="create_parking_reminder">Create parking reminder</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="submit">Submit</string>
+    <string name="add_report_or_feedback">Add Report Or Feedback</string>
+    <string name="home">Home</string>
+    <string name="manage_request">Manage Request</string>
+    <string name="parking_history">Parking History</string>
+    <string name="licenseplate_default">License Plate:</string>
+    <string name="notifications">Notifications</string>
+    <string name="back_to_profile">Back to Profile</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="licenseplate">License Plate</string>
+    <string name="update">Update</string>
+    <string name="Uploaded">Uploaded</string>
+    <string name="open_notifications">Open Notifications</string>
 </resources>

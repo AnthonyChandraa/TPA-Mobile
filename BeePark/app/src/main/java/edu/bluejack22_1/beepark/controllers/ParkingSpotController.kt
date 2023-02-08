@@ -10,7 +10,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beepark.BookingActivity
 import edu.bluejack22_1.beepark.R
-import edu.bluejack22_1.beepark.ReportFeedbackActivity
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.adapters.BookingAdapter
 import edu.bluejack22_1.beepark.adapters.ParkingSpotsAdapter
@@ -138,12 +137,18 @@ class ParkingSpotController(var context: Context) {
                 .get()
                 .addOnSuccessListener{
                         document ->
+
                         val data = document.data
-                        val floorString = "Floor " + data?.get("floorNumber").toString()
-                        Log.w("floor", "${document.id}")
+                        var floorString = "Floor " + data?.get("floorNumber").toString()
+                        var spotCode = document.id
+                        spotCode = spotCode.lowercase()
+                        floorString = floorString.lowercase()
+                        val buildingName = data?.get("buildingName").toString().lowercase()
+                        Log.w("Search", "$floorString, $buildingName, $spotCode" )
+
                     if (document != null) {
-                        if(document.id.contains(search) || floorString.contains(search)
-                            || data?.get("buildingName").toString().contains(search)){
+                        if(spotCode.contains(search.lowercase()) || floorString.contains(search.lowercase())
+                            || buildingName.contains(search.lowercase())){
                             newVector.add(booking)
                             bookingAdapter.setBookings(newVector)
                             bookingAdapter.notifyDataSetChanged()

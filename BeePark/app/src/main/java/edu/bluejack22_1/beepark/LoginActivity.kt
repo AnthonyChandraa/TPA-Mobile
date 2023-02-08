@@ -6,6 +6,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -20,9 +21,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.controllers.UserController
+import edu.bluejack22_1.beepark.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {
@@ -34,11 +37,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnSignInWithGoogle : SignInButton;
     private lateinit var googleSignInClient : GoogleSignInClient;
     private lateinit var userController: UserController
+    val db = Firebase.firestore
 
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+
+        binding = ActivityLoginBinding.inflate(LayoutInflater.from(this))
+
         firebaseAuth = Firebase.auth
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -53,17 +60,17 @@ class LoginActivity : AppCompatActivity() {
 
         userController = UserController(this)
 
-        btnSignInWithGoogle = findViewById(R.id.signInWithGoogleButton)
+        btnSignInWithGoogle = binding.signInWithGoogleButton
         btnSignInWithGoogle.setSize(SignInButton.SIZE_STANDARD)
 
         btnSignInWithGoogle.setOnClickListener {
             signInWithGoogle()
         }
 
-        etEmail = findViewById(R.id.emailInput)
-        etPassword = findViewById(R.id.passwordInput)
-        btnLogin = findViewById(R.id.btnLogin)
-        btnToRegis = findViewById(R.id.btnRegis)
+        etEmail = binding.emailInput
+        etPassword = binding.passwordInput
+        btnLogin = binding.btnLogin
+        btnToRegis = binding.btnRegis
 
         btnToRegis.setOnClickListener{
             finishAndRemoveTask()
@@ -75,20 +82,25 @@ class LoginActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
 
             if(email.isEmpty() || password.isEmpty()){
-                Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
+                binding.errorTv.text = UiString.StringResource(resId = R.string.errorEmpty).asString(this)
+//                Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorEmpty).asString(this), Toast.LENGTH_SHORT).show()
             }
 
             if(email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){ task->
                     if(task.isSuccessful){
-                        userController.loginUser(email)
+                        userController.loginUser(email, false)
                     }else{
                             Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorLogin).asString(this), Toast.LENGTH_SHORT).show()
+                            binding.errorTv.text = UiString.StringResource(resId = R.string.errorLogin).asString(this)
+//                            Toast.makeText(baseContext, UiString.StringResource(resId = R.string.errorLogin).asString(this), Toast.LENGTH_SHORT).show()
                         }
                 }
             }
         }
+
+
+        setContentView(binding.root)
     }
 
     private fun signInWithGoogle(){
@@ -115,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
                 updateUI(account)
             }
         }else{
-            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -123,18 +135,33 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful){
-//                val user = firebaseAuth.currentUser
-//                userController.signInFromGoogle(user);
-//                Log.w("user", "$user")
-//                if (user != null) {
-//                    userController.createNewUser(user.displayName, user.email, true)
-//                }
+                val user = firebaseAuth.currentUser
+                if (user != null) {
+                    val docRef = db.collection("Users").document(user.uid.toString())
 
-                intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("userId", "")
-                startActivity(intent)
+                    docRef.get().addOnCompleteListener{ task ->
+                        if(task.isSuccessful){
+                            val document = task.result
+                            if(document != null){
+                                if(document.exists()){
+
+                                }else{
+                                    userController.createNewUser(user.displayName, user.email, true, user.photoUrl.toString())
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+//                intent = Intent(this, HomeActivity::class.java)
+//                intent.putExtra("userId", "")
+//                startActivity(intent)
             }else{
-                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                binding.errorTv.text = UiString.StringResource(R.id.errorGoogleLogin).asString(this)
+//                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }

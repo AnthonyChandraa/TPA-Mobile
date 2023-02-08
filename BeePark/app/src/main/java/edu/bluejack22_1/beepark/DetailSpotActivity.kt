@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import edu.bluejack22_1.beepark.UIString.UiString
+import edu.bluejack22_1.beepark.adapters.NotificationAdapter
+import edu.bluejack22_1.beepark.controllers.BookingController
 import edu.bluejack22_1.beepark.controllers.ParkingSpotController
 import edu.bluejack22_1.beepark.databinding.ActivityDetailSpotBinding
 
 class DetailSpotActivity : AppCompatActivity() {
 
     private lateinit var parkingSpotController: ParkingSpotController
+    private lateinit var bookingController: BookingController
     private lateinit var binding: ActivityDetailSpotBinding
     private var isAdmin: Boolean = false
     private lateinit var userId: String
@@ -29,9 +32,16 @@ class DetailSpotActivity : AppCompatActivity() {
 
         parkingSpotController = ParkingSpotController(this)
         parkingSpotController.setUpSpotDetail(spotCode, binding.spotCode, binding.buildingTv, binding.floorTv, isAdmin, binding.btnAction, userId)
+        bookingController = BookingController(this)
 
         setUpButton()
+        setUpRv()
         setContentView(binding.root)
+    }
+
+    private fun setUpRv() {
+        val notificationAdapter = NotificationAdapter(ArrayList<String>(), this)
+        bookingController.getNotifications(binding.bookedRv, notificationAdapter, spotCode)
     }
 
     private fun setUpButton(){

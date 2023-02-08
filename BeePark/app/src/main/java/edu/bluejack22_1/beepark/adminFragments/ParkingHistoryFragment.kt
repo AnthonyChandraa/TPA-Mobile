@@ -127,6 +127,18 @@ class ParkingHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener, T
         savedYear = year
 
         TimePickerDialog(requireContext(), this, hour, minute, true).show()
+//        val calendar = Calendar.getInstance()
+//        calendar.set(Calendar.YEAR, savedYear)
+//        calendar.set(Calendar.MONTH, savedMonth - 1)
+//        calendar.set(Calendar.DAY_OF_MONTH, savedDay)
+//
+//        val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+//        timePicker.text = dateFormat.format(calendar.time)
+//        if(!isSet) {
+//            isSet = true
+//            bookings = bookingAdapter.getBookings()
+//        }
+//        bookingController.searchTime(bookings, calendar.time, bookingAdapter)
     }
 
     override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
@@ -137,19 +149,20 @@ class ParkingHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener, T
 
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, savedYear)
-        calendar.set(Calendar.MONTH, savedMonth)
+        calendar.set(Calendar.MONTH, savedMonth - 1)
         calendar.set(Calendar.DAY_OF_MONTH, savedDay)
+
         calendar.set(Calendar.HOUR_OF_DAY, savedHour)
         calendar.set(Calendar.MINUTE, savedMinute)
 
         val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aa")
 
         timePicker.text = dateFormat.format(calendar.time)
-
         if(!isSet) {
             isSet = true
             bookings = bookingAdapter.getBookings()
         }
-        bookingController.searchTime(bookings, dateTime, bookingAdapter)
+
+        bookingController.searchTime(bookings, calendar.time, bookingAdapter)
     }
 }

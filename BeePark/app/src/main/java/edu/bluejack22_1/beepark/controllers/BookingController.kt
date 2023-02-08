@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -12,11 +13,10 @@ import edu.bluejack22_1.beepark.HomeActivity
 import edu.bluejack22_1.beepark.R
 import edu.bluejack22_1.beepark.UIString.UiString
 import edu.bluejack22_1.beepark.adapters.BookingAdapter
+import edu.bluejack22_1.beepark.adapters.NotificationAdapter
 import edu.bluejack22_1.beepark.model.Booking
+import java.text.SimpleDateFormat
 import java.time.Duration
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.Date
 import java.util.Vector
 
@@ -109,21 +109,20 @@ class BookingController(private var context: Context) {
             }
     }
 
-    fun searchTime(bookings:Vector<Booking>, dateTime: LocalDateTime, bookingAdapter: BookingAdapter) {
+    fun searchTime(bookings:Vector<Booking>, dateTime: Date, bookingAdapter: BookingAdapter) {
         var newVector = Vector<Booking>()
         bookingAdapter.setBookings(newVector)
         bookingAdapter.notifyDataSetChanged()
 
-        var searchTime = java.sql.Timestamp(dateTime.toEpochSecond(ZoneId.systemDefault().rules.getOffset(
-            Instant.now())))
+        var searchDate = Timestamp(dateTime.toInstant().epochSecond, dateTime.toInstant().nano)
 
 
         for(booking in bookings){
-            var startTimeMs = (booking.startTime.seconds * 1000 + booking.startTime.nanoseconds / 1000000)/1000
-            var endTimeMs = (booking.endTime.seconds * 1000 + booking.endTime.nanoseconds / 1000000)/1000
-            var searchTimeMs = (Timestamp(searchTime).seconds * 1000 + Timestamp(searchTime).nanoseconds / 1000000)
-            Log.w("TimeStamp", "$searchTimeMs $startTimeMs $endTimeMs")
-            if(searchTimeMs == startTimeMs || searchTimeMs == endTimeMs){
+//            var startTimeMs = (booking.startTime.seconds * 1000 + booking.startTime.nanoseconds / 1000000)
+//            var endTimeMs = (booking.endTime.seconds * 1000 + booking.endTime.nanoseconds / 1000000)
+//            var searchTimeMs = (Timestamp(searchTime).seconds * 1000 + Timestamp(searchTime).nanoseconds / 1000000)
+            Log.w("TimeStamp", "$searchDate ${booking.startTime} ${booking.endTime}")
+            if(booking.startTime <= searchDate && booking.endTime >= searchDate){
                 newVector.add(booking)
                 bookingAdapter.setBookings(newVector)
                 bookingAdapter.notifyDataSetChanged()
@@ -310,6 +309,36 @@ class BookingController(private var context: Context) {
             }
             .addOnFailureListener {
                 Log.w("Create User", "failed")
+            }
+    }
+
+    fun getNotifications(bookedRv: RecyclerView, notificationAdapter: NotificationAdapter, spotCode: String) {
+        db.collection("Bookings")
+            .whereEqualTo("spotCode", spotCode)
+            .addSnapshotListener {
+                    docs, error ->
+                if(error != null) Log.e("error", "$error")
+                var bookedDates: ArrayList<String> = ArrayList()
+                if (docs != null) {
+                    for(doc in docs){
+                        val data = doc.data
+                        val startTime : Timestamp = data["startTime"] as Timestamp
+                        var startTimeMs = startTime.seconds * 1000 + startTime.nanoseconds / 1000000
+                        var startNetDate = Date(startTimeMs)
+
+                        var dateFormat = SimpleDateFormat("dd/MM/yyyy")
+
+                        if(startTime >= Timestamp.now()){
+                            bookedDates.add(dateFormat.format(startNetDate))
+                        }
+                    }
+                }
+
+                notificationAdapter.setNotifications(bookedDates)
+                notificationAdapter.notifyDataSetChanged()
+
+                bookedRv.layoutManager = LinearLayoutManager(context)
+                bookedRv.adapter = notificationAdapter
             }
     }
 }
